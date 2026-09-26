@@ -1,0 +1,527 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Physical AI Landscape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f4f6f7;
+  --surface: #ffffff;
+  --ink: #1b2228;
+  --muted: #5b6771;
+  --line: #d9dfe3;
+  --accent: #2a5b86;
+  --accent-soft: #dfe9f2;
+  --weak: #a7b3bc;
+  --l1: #2a5b86;
+  --l2: #7a4f9a;
+  --l3: #2f7a63;
+  --l4: #a45c2a;
+  --chip: #eef1f3;
+  --sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111519;
+    --surface: #182027;
+    --ink: #e4e9ed;
+    --muted: #9aa7b2;
+    --line: #2a343d;
+    --accent: #86b4df;
+    --accent-soft: #1f3243;
+    --weak: #4f5c67;
+    --l1: #86b4df;
+    --l2: #c19be0;
+    --l3: #7ccaa9;
+    --l4: #e29a67;
+    --chip: #202a32;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111519;
+  --surface: #182027;
+  --ink: #e4e9ed;
+  --muted: #9aa7b2;
+  --line: #2a343d;
+  --accent: #86b4df;
+  --accent-soft: #1f3243;
+  --weak: #4f5c67;
+  --l1: #86b4df;
+  --l2: #c19be0;
+  --l3: #7ccaa9;
+  --l4: #e29a67;
+  --chip: #202a32;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-inline: 16px;
+  padding-block: 32px 64px;
+}
+.wrap { max-width: 1040px; margin: 0 auto; display: grid; gap: 40px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 20px; font-weight: 700; }
+h3 { font-size: 15px; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 17px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+section { display: grid; gap: 16px; }
+header { display: grid; gap: 12px; }
+.note {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 10px 14px;
+  font-size: 14px;
+  max-width: 76ch;
+}
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 0 6px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+
+/* stack */
+.stack { display: grid; gap: 10px; }
+.layer {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--c);
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 8px 20px;
+}
+.layer .name { display: grid; gap: 2px; align-content: start; }
+.layer .name span { font-size: 13px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; align-content: start; }
+.chip { background: var(--chip); padding: 2px 8px; border-radius: 3px; font-size: 13px; white-space: nowrap; }
+.chip i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--muted); margin-left: 4px; }
+@media (max-width: 640px) { .layer { grid-template-columns: 1fr; } }
+
+/* market map */
+.mmap { display: grid; gap: 0; }
+.mrow {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--c) 9%, var(--surface));
+}
+.mhead { padding: 16px; display: grid; gap: 4px; align-content: center; border-right: 4px solid var(--c); }
+.mhead h3 { font-size: 17px; color: var(--c); }
+.mhead span { font-size: 13px; color: var(--muted); }
+.msegs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; padding: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--c); padding: 10px 12px; display: grid; gap: 6px; align-content: start; }
+.tile .th { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.tile .ts { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.tile .ts b { font-size: 18px; color: var(--ink); font-variant-numeric: tabular-nums; margin-right: 2px; }
+.tile ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; font-size: 13.5px; font-weight: 500; }
+.up { display: grid; justify-items: center; height: 30px; position: relative; }
+.up::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 2px dashed var(--line); }
+.up span { position: relative; align-self: center; background: var(--bg); padding: 0 8px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+@media (max-width: 640px) {
+  .mrow { grid-template-columns: 1fr; }
+  .mhead { border-right: 0; border-bottom: 4px solid var(--c); }
+}
+
+/* tables */
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--surface); border: 1px solid var(--line); font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; font-family: var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td.rowhead { font-weight: 600; white-space: nowrap; }
+.matrix td { min-width: 180px; background: color-mix(in srgb, var(--c, transparent) 7%, var(--surface)); }
+.matrix td.rowhead { border-left: 5px solid var(--c); color: var(--c); white-space: normal; min-width: 150px; }
+.matrix .chip { background: var(--surface); border: 1px solid color-mix(in srgb, var(--c) 35%, var(--line)); }
+.matrix .list { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+
+/* bars */
+.bars { background: var(--surface); border: 1px solid var(--line); padding: 16px; display: grid; gap: 6px; }
+.bars h3 { margin-bottom: 4px; }
+.bar { display: grid; grid-template-columns: 170px 1fr 92px; align-items: center; gap: 10px; font-size: 13px; }
+.bar .track { height: 14px; position: relative; }
+.bar .fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); border-radius: 0 2px 2px 0; }
+.bar .fill.weak { background: repeating-linear-gradient(135deg, var(--weak) 0 4px, transparent 4px 7px); border: 1px solid var(--weak); }
+.bar .val { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; }
+.bar .lab a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 18px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+.legend .l-strong::before { background: var(--accent); }
+.legend .l-weak::before { background: repeating-linear-gradient(135deg, var(--weak) 0 4px, transparent 4px 7px); border: 1px solid var(--weak); }
+@media (max-width: 560px) { .bar { grid-template-columns: 110px 1fr 70px; } }
+
+/* share bar */
+.share { display: flex; height: 30px; border: 1px solid var(--line); background: var(--surface); }
+.share div { display: flex; align-items: center; padding-inline: 8px; font-size: 12px; font-family: var(--mono); white-space: nowrap; overflow: hidden; }
+.share .a { background: var(--l1); color: var(--surface); }
+.share .b { background: var(--accent-soft); color: var(--ink); }
+.share .c { background: var(--chip); color: var(--muted); }
+
+/* log chart */
+.log { background: var(--surface); border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; }
+.logrow { display: grid; grid-template-columns: 190px 1fr; gap: 10px; align-items: center; font-size: 13px; }
+.logtrack { position: relative; height: 18px; }
+.logaxis { position: relative; height: 18px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.logaxis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.grid-lines { position: absolute; inset: 0; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: calc(100% / 7) 100%; }
+.seg { position: absolute; top: 3px; bottom: 3px; background: var(--l3); border-radius: 2px; }
+.seg.est { background: repeating-linear-gradient(135deg, var(--l3) 0 4px, transparent 4px 7px); border: 1px solid var(--l3); }
+.seg + .v { position: absolute; top: 0; font-family: var(--mono); font-size: 11px; line-height: 18px; white-space: nowrap; }
+@media (max-width: 560px) { .logrow { grid-template-columns: 1fr; gap: 2px; } }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+ul.plain { margin: 0; padding-left: 18px; display: grid; gap: 6px; max-width: 72ch; }
+.findings { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 76ch; }
+.findings b { font-weight: 600; }
+.flow { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: center; letter-spacing: 0.04em; }
+
+/* link diagram */
+.diagram { background: var(--surface); border: 1px solid var(--line); padding: 16px; }
+.diagram svg { width: 100%; height: auto; min-width: 620px; display: block; }
+.diagram .box { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.diagram .boxt { fill: var(--ink); font: 600 14px var(--sans); }
+.diagram .boxs { fill: var(--muted); font: 400 12px var(--mono); }
+.diagram .wire { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+.diagram .head { fill: var(--muted); }
+.diagram .lt { fill: var(--ink); font: 600 13px var(--sans); }
+.diagram .ls { fill: var(--muted); font: 400 11.5px var(--sans); }
+.diagram .pill { stroke: none; }
+
+/* timeline */
+.timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--line); display: grid; gap: 14px; }
+.timeline li { position: relative; display: grid; gap: 2px; }
+.timeline li::before { content: ""; position: absolute; left: -29px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); }
+.timeline .when { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.timeline .what { font-weight: 600; }
+
+/* field cards */
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.field { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c); padding: 12px 14px; display: grid; gap: 6px; align-content: start; }
+.field .fname { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+.field .idea { font-weight: 600; }
+.field ul { margin: 0; padding-left: 18px; font-size: 13px; display: grid; gap: 3px; }
+
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 16px; }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Research notes · 26 Sep 2026</div>
+  <h1>Physical AI Landscape</h1>
+  <p class="lede">About 140 companies build the robotics and physical-AI stack, in four layers.</p>
+  <ul class="findings">
+    <li><b>Money:</b> Figure is valued at $39B, Skild at about $14B and Physical Intelligence at $5.6B. Defense autonomy is bigger still: Anduril is reported at $61B.</li>
+    <li><b>Volume:</b> Chinese firms shipped about 80% of the ~13,000 humanoids sold in 2025.</li>
+    <li><b>Consolidation:</b> Amazon, Meta, Google and Mobileye bought or absorbed robot AI teams in 2024–26.</li>
+    <li><b>Data:</b> training data is now a business of its own (Scale AI, Encord, XDOF, Midcentury).</li>
+    <li><b>Model-to-model links:</b> no company found sells a link between two different AI models. Tensormesh shares KV caches between copies of the same model.</li>
+  </ul>
+  <p class="note">Every figure links to its source. Hatched bars and the <span class="tag">weak</span> tag mark figures from aggregator or blog reporting; check those before you rely on them. The company lists are a sample. Use the trackers at the bottom for the long tail.</p>
+</header>
+
+<section id="stack">
+  <h2>Industry layers</h2>
+  <p class="muted">Each layer supplies the one above it. Read from the bottom up.</p>
+  <div class="mmap">
+    <div class="mrow" style="--c: var(--l4)">
+      <div class="mhead"><h3>Single-job robots</h3><span>Autonomy built for one industry</span></div>
+      <div class="msegs">
+        <div class="tile"><div class="th">Warehouse</div><div class="ts">Fleets of robots coordinating</div><ul><li>Symbotic</li><li>Locus</li><li>Exotec</li><li>Dexterity</li><li>Geek+</li></ul></div>
+        <div class="tile"><div class="th">Defense</div><div class="ts"><b>$61B</b> Anduril <span class="tag">weak</span></div><ul><li>Anduril</li><li>Shield AI</li><li>Saronic</li><li>Helsing</li><li>Skydio</li></ul></div>
+        <div class="tile"><div class="th">Driving</div><div class="ts">Robotaxis live in the US, China and Dubai</div><ul><li>Waymo</li><li>Zoox</li><li>Wayve</li><li>Pony.ai</li><li>WeRide</li><li>Aurora</li></ul></div>
+        <div class="tile"><div class="th">Field &amp; delivery</div><div class="ts">Farms, sidewalks, drones</div><ul><li>Carbon Robotics</li><li>Serve</li><li>Starship</li><li>Zipline</li></ul></div>
+      </div>
+    </div>
+    <div class="up" aria-hidden="true"><span>▲ supplies</span></div>
+    <div class="mrow" style="--c: var(--l2)">
+      <div class="mhead"><h3>Robot makers</h3><span>General-purpose bodies, mostly humanoids</span></div>
+      <div class="msegs">
+        <div class="tile"><div class="th">US</div><div class="ts"><b>$39B</b> Figure</div><ul><li>Figure</li><li>Tesla Optimus</li><li>Apptronik</li><li>Agility</li><li>1X</li><li>Boston Dynamics</li><li>Sunday</li></ul></div>
+        <div class="tile"><div class="th">Europe &amp; Israel</div><div class="ts"><b>~$7B</b> NEURA</div><ul><li>NEURA</li><li>Humanoid</li><li>Mentee (Mobileye)</li><li>PAL Robotics</li></ul></div>
+        <div class="tile"><div class="th">China</div><div class="ts"><b>~80%</b> of 2025 shipments</div><ul><li>AgiBot</li><li>Unitree</li><li>UBTech</li><li>Galbot</li><li>LimX</li><li>Booster</li></ul></div>
+        <div class="tile"><div class="th">Korea</div><div class="ts">Samsung owns 35%</div><ul><li>Rainbow Robotics</li></ul></div>
+      </div>
+    </div>
+    <div class="up" aria-hidden="true"><span>▲ supplies</span></div>
+    <div class="mrow" style="--c: var(--l1)">
+      <div class="mhead"><h3>Robot brains</h3><span>AI models that control robots</span></div>
+      <div class="msegs">
+        <div class="tile"><div class="th">Model labs</div><div class="ts"><b>~$14B</b> Skild <span class="tag">weak</span></div><ul><li>Physical Intelligence</li><li>Skild AI</li><li>Generalist</li><li>General Intuition</li><li>Rhoda AI</li><li>Genesis AI</li><li>Dyna</li></ul></div>
+        <div class="tile"><div class="th">Big tech</div><div class="ts">Platforms others build on</div><ul><li>Gemini Robotics</li><li>NVIDIA GR00T</li><li>Meta (ARI)</li><li>Amazon</li><li>TRI / Walden</li></ul></div>
+        <div class="tile"><div class="th">China</div><div class="ts"><b>$2.8B+</b> X Square</div><ul><li>X Square</li><li>Spirit AI</li><li>Ant LingBot</li></ul></div>
+      </div>
+    </div>
+    <div class="up" aria-hidden="true"><span>▲ supplies</span></div>
+    <div class="mrow" style="--c: var(--l3)">
+      <div class="mhead"><h3>Picks and shovels</h3><span>What every layer above buys</span></div>
+      <div class="msegs">
+        <div class="tile"><div class="th">Data</div><div class="ts"><b>2M+ h</b> Midcentury video</div><ul><li>Scale AI</li><li>Encord</li><li>XDOF</li><li>Midcentury</li></ul></div>
+        <div class="tile"><div class="th">Simulation</div><div class="ts"><b>$1.45B</b> Odyssey</div><ul><li>Odyssey</li><li>World Labs</li><li>NVIDIA Cosmos</li></ul></div>
+        <div class="tile"><div class="th">Chips</div><div class="ts"><b>$250M+</b> Axelera raise</div><ul><li>Jetson Thor</li><li>Qualcomm</li><li>Axelera</li><li>Hailo</li></ul></div>
+        <div class="tile"><div class="th">Messaging &amp; tools</div><div class="ts">Robot, fleet and cloud links</div><ul><li>Zenoh</li><li>Viam</li><li>Foxglove</li><li>Rerun</li></ul></div>
+        <div class="tile"><div class="th">Parts</div><div class="ts">Hands and touch</div><ul><li>Psyonic</li><li>GelSight</li><li>Harmonic Drive</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="competitive">
+  <h2>Who competes with whom</h2>
+  <p>Companies split by what they sell:</p>
+  <ul class="plain">
+    <li><b>Model only:</b> a robot brain licensed to others</li>
+    <li><b>Model + own robot:</b> the full stack, like Figure with Helix</li>
+    <li><b>Robot, partner or undisclosed model:</b> hardware first, using someone else's AI or not saying</li>
+    <li><b>Platform for others:</b> models and tools that other robot makers build on</li>
+  </ul>
+  <p class="small muted">Placement follows each company's public statements. Many Chinese makers do not say which model they use.</p>
+  <div class="scroll">
+    <table class="matrix">
+      <thead><tr><th>What they sell</th><th>US &amp; Canada</th><th>Europe &amp; Israel</th><th>China</th></tr></thead>
+      <tbody>
+        <tr style="--c: var(--l1)">
+          <td class="rowhead">Model only</td>
+          <td><div class="list"><span class="chip">Physical Intelligence</span><span class="chip">Skild AI</span><span class="chip">Generalist</span><span class="chip">General Intuition</span><span class="chip">Rhoda AI</span><span class="chip">Dyna</span><span class="chip">Field AI</span><span class="chip">Genesis AI</span></div></td>
+          <td class="muted">None found</td>
+          <td><div class="list"><span class="chip">Spirit AI</span><span class="chip">Ant LingBot</span></div></td>
+        </tr>
+        <tr style="--c: var(--l2)">
+          <td class="rowhead">Model + own robot</td>
+          <td><div class="list"><span class="chip">Figure (Helix)</span><span class="chip">Tesla</span><span class="chip">1X (Redwood)</span><span class="chip">Sanctuary (Carbon)</span></div></td>
+          <td><div class="list"><span class="chip">NEURA</span><span class="chip">Mentee (Mobileye)</span></div></td>
+          <td><div class="list"><span class="chip">AgiBot</span><span class="chip">Unitree</span><span class="chip">UBTech</span><span class="chip">Galbot</span><span class="chip">X Square</span><span class="chip">Xpeng</span><span class="chip">Xiaomi</span></div></td>
+        </tr>
+        <tr style="--c: var(--l4)">
+          <td class="rowhead">Robot, partner or undisclosed model</td>
+          <td><div class="list"><span class="chip">Apptronik (DeepMind)</span><span class="chip">Boston Dynamics (DeepMind)</span><span class="chip">Agility</span><span class="chip">Sunday</span><span class="chip">The Bot Company</span></div></td>
+          <td><div class="list"><span class="chip">Humanoid</span><span class="chip">PAL Robotics</span><span class="chip">Agile Robots</span></div></td>
+          <td><div class="list"><span class="chip">Fourier</span><span class="chip">EngineAI</span><span class="chip">Robot Era</span><span class="chip">LimX</span><span class="chip">Booster</span><span class="chip">MagicLab</span></div></td>
+        </tr>
+        <tr style="--c: var(--l3)">
+          <td class="rowhead">Platform for others</td>
+          <td><div class="list"><span class="chip">NVIDIA GR00T</span><span class="chip">Google Gemini Robotics</span><span class="chip">Hugging Face LeRobot</span><span class="chip">Meta (ARI)</span><span class="chip">Amazon</span></div></td>
+          <td class="muted">None found</td>
+          <td class="muted">None found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cols">
+    <div class="bars">
+      <h3>Valuations, robots and models (US$ billions)</h3>
+      <div class="bar"><span class="lab"><a href="https://www.figure.ai/news/series-c">Figure</a></span><span class="track"><span class="fill" style="width:63.9%"></span></span><span class="val">39</span></div>
+      <div class="bar"><span class="lab"><a href="https://tracxn.com/d/sectors/foundation-model-for-robots/__TkCNTbGzBgOQD-gvXouaw9wsjiwyjX4SRvDRtMq0e9s/companies">Skild AI</a></span><span class="track"><span class="fill weak" style="width:23%"></span></span><span class="val">~14</span></div>
+      <div class="bar"><span class="lab"><a href="https://neura-robotics.com/record-series-c/">NEURA</a></span><span class="track"><span class="fill" style="width:11.5%"></span></span><span class="val">~7</span></div>
+      <div class="bar"><span class="lab"><a href="https://techcrunch.com/2026/08/24/valor-point72-back-general-intuition-at-6b-valuation-as-ai-startup-pushes-into-robotics/">General Intuition</a></span><span class="track"><span class="fill" style="width:9.8%"></span></span><span class="val">6 (talks)</span></div>
+      <div class="bar"><span class="lab"><a href="https://pitchbook.com/profiles/company/590542-30">Physical Intelligence</a></span><span class="track"><span class="fill weak" style="width:9.2%"></span></span><span class="val">5.6</span></div>
+      <div class="bar"><span class="lab"><a href="https://www.cnbc.com/2026/02/11/apptronik-raises-520-million-at-5-billion-valuation-for-apollo-robot.html">Apptronik</a></span><span class="track"><span class="fill" style="width:8.2%"></span></span><span class="val">5</span></div>
+      <div class="bar"><span class="lab"><a href="https://valueaddvc.com/pulse/generalist-3-billion-robotics-valuation-2026">Generalist</a></span><span class="track"><span class="fill weak" style="width:4.9%"></span></span><span class="val">~3</span></div>
+      <div class="bar"><span class="lab"><a href="https://www.therobotreport.com/">Agility (SPAC)</a></span><span class="track"><span class="fill weak" style="width:4.1%"></span></span><span class="val">2.5</span></div>
+      <div class="bar"><span class="lab"><a href="https://www.therobotreport.com/the-bot-company-led-by-kyle-vogt-brings-in-another-150m/">The Bot Company</a></span><span class="track"><span class="fill" style="width:3.3%"></span></span><span class="val">2</span></div>
+      <div class="bar"><span class="lab"><a href="https://siliconangle.com/2026/03/10/rhoda-ai-raises-450m-build-foundational-robotics-models-learn-internet-videos/">Rhoda AI</a></span><span class="track"><span class="fill" style="width:2.8%"></span></span><span class="val">1.7</span></div>
+      <div class="bar"><span class="lab"><a href="https://www.businesswire.com/news/home/20260723238282/en/Humanoid-Raises-%24152-Million-at-%241.35-Billion-Post-Money-Valuation">Humanoid</a></span><span class="track"><span class="fill" style="width:2.2%"></span></span><span class="val">1.35</span></div>
+      <div class="bar"><span class="lab"><a href="https://techcrunch.com/2026/03/12/humanoid-robotics-maker-sunday-reaches-1-15b-valuation-to-build-household-robots/">Sunday</a></span><span class="track"><span class="fill" style="width:1.9%"></span></span><span class="val">1.15</span></div>
+    </div>
+    <div class="bars">
+      <h3>Valuations, defense autonomy (same scale)</h3>
+      <div class="bar"><span class="lab"><a href="https://migflug.com/afterburner/anduril-yfq-44a-fury-defence-startups-primes-2026/">Anduril</a></span><span class="track"><span class="fill weak" style="width:100%"></span></span><span class="val">61</span></div>
+      <div class="bar"><span class="lab"><a href="https://beginnersinai.org/ai-in-military-drones-2026/">Helsing</a></span><span class="track"><span class="fill weak" style="width:29.5%"></span></span><span class="val">18</span></div>
+      <div class="bar"><span class="lab"><a href="https://beginnersinai.org/ai-in-military-drones-2026/">Shield AI</a></span><span class="track"><span class="fill weak" style="width:20.8%"></span></span><span class="val">12.7</span></div>
+      <div class="bar"><span class="lab"><a href="https://www.prnewswire.com/news-releases/saronic-closes-1-75b-series-d-at-9-25b-valuation-to-accelerate-a-new-era-of-maritime-autonomy-302729298.html">Saronic</a></span><span class="track"><span class="fill" style="width:15.2%"></span></span><span class="val">9.25</span></div>
+      <p class="small muted" style="margin-top:8px">Defense autonomy is the largest single pool of private robotics money. Most of these figures come from secondary reporting.</p>
+      <div class="legend" style="margin-top:8px"><span class="l-strong">Company release or major outlet</span><span class="l-weak">Aggregator or blog</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="china">
+  <h2>China builds, the US funds</h2>
+  <ul class="plain">
+    <li>About 13,000 humanoids shipped worldwide in 2025, and Chinese firms shipped about 80% of them.</li>
+    <li>AgiBot led with 5,168 units, followed by Unitree and UBTech (<a href="https://www.scmp.com/tech/tech-trends/article/3339346/chinese-firms-outpace-us-rivals-2025-humanoid-robot-shipments-agibot-takes-lead">SCMP, citing Omdia</a>).</li>
+    <li>Unitree's G1 sells for about $16,000.</li>
+    <li>The largest valuations are American: Figure, Skild and Physical Intelligence.</li>
+  </ul>
+  <h3>2025 humanoid shipments</h3>
+  <div class="share" role="img" aria-label="2025 humanoid shipments: AgiBot 39 percent, other Chinese firms about 41 percent, rest of world about 20 percent">
+    <div class="a" style="width:39%">AgiBot 39%</div>
+    <div class="b" style="width:41%">Other China ~41%</div>
+    <div class="c" style="width:20%">Rest ~20%</div>
+  </div>
+  <p class="small muted">Robotics venture funding reached $18.8B in 2026 so far, more than all of 2025 ($15B) and the 2021 peak ($14.1B) (<a href="https://news.crunchbase.com/robotics/startup-venture-funding-surges-2026-data/">Crunchbase</a>).</p>
+</section>
+
+<section id="moves">
+  <h2>Consolidation</h2>
+  <p>Large companies are buying robot AI teams instead of building them.</p>
+  <ol class="timeline">
+    <li><span class="when">Aug 2024</span><span class="what">Amazon ← Covariant</span><span class="small">Hired the founders and licensed the model (<a href="https://techcrunch.com/2024/08/31/amazon-hires-the-founders-of-robotics-ai-startup-covariant/">TechCrunch</a>)</span></li>
+    <li><span class="when">Jan 2025</span><span class="what">Samsung → Rainbow Robotics</span><span class="small">Raised its stake to 35% and became the largest shareholder (<a href="https://news.samsung.com/global/samsung-electronics-to-become-largest-shareholder-in-rainbow-robotics-accelerating-future-robot-development">Samsung</a>)</span></li>
+    <li><span class="when">Late 2025</span><span class="what">K-Scale Labs shuts down</span><span class="small">Failed to close its Series A and refunded preorders</span></li>
+    <li><span class="when">Jan 2026</span><span class="what">Mobileye ← Mentee Robotics</span><span class="small">Acquisition, reported at ~$900M (<a href="https://pitchbook.com/profiles/company/542381-95">PitchBook</a>) <span class="tag">weak</span></span></li>
+    <li><span class="when">Feb 2026</span><span class="what">Google ← Intrinsic</span><span class="small">Moved from Alphabet into Google to work with DeepMind (<a href="https://techcrunch.com/2026/02/25/alphabet-owned-robotics-software-company-intrinsic-joins-google">TechCrunch</a>)</span></li>
+    <li><span class="when">May 2026</span><span class="what">Meta ← Assured Robot Intelligence</span><span class="small">Acquisition (<a href="https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/">TechCrunch</a>)</span></li>
+    <li><span class="when">Jul 2026</span><span class="what">Toyota Research Institute → Walden Robotics</span><span class="small">Spin-out launched with $300M (<a href="https://www.businesswire.com/news/home/20260715089377/en/Walden-Robotics-Launches-with-%24300-Million-to-Put-General-Purpose-Robots-to-Work-Today">BusinessWire</a>)</span></li>
+  </ol>
+</section>
+
+<section id="focus">
+  <h2>Communication between models</h2>
+  <p>Robots run a slow planning model and a fast control model. What passes between them sets three things:</p>
+  <ul class="plain">
+    <li>the message size, and so whether the link can cross a network</li>
+    <li>how often a new message can arrive</li>
+    <li>whether the two models must be trained together</li>
+  </ul>
+
+  <div class="diagram scroll" role="img" aria-label="Four ways a slow planning model sends information to a fast control model: text, one latent vector, token features, and shared attention or KV cache.">
+    <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path class="head" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+      <rect class="box" x="16" y="40" width="170" height="250" rx="4"/>
+      <text class="boxt" x="101" y="150" text-anchor="middle">Slow planning</text>
+      <text class="boxt" x="101" y="170" text-anchor="middle">model</text>
+      <text class="boxs" x="101" y="194" text-anchor="middle">a few Hz</text>
+      <text class="boxs" x="101" y="210" text-anchor="middle">large, e.g. 7B</text>
+      <rect class="box" x="574" y="40" width="170" height="250" rx="4"/>
+      <text class="boxt" x="659" y="150" text-anchor="middle">Fast control</text>
+      <text class="boxt" x="659" y="170" text-anchor="middle">model</text>
+      <text class="boxs" x="659" y="194" text-anchor="middle">50–200 Hz</text>
+      <text class="boxs" x="659" y="210" text-anchor="middle">small, e.g. 80M</text>
+
+      <line class="wire" x1="190" y1="82" x2="568" y2="82" marker-end="url(#arr)"/>
+      <text class="lt" x="380" y="74" text-anchor="middle">Text instruction · ~100 B</text>
+      <text class="ls" x="380" y="99" text-anchor="middle">Gemini Robotics, Hi Robot. Either model can be swapped; detail is lost.</text>
+
+      <line class="wire" x1="190" y1="146" x2="568" y2="146" marker-end="url(#arr)"/>
+      <text class="lt" x="380" y="138" text-anchor="middle">One latent vector · ~4 KB</text>
+      <text class="ls" x="380" y="163" text-anchor="middle">Figure Helix, LCB, HiRT. Rich; the fast model is trained on it.</text>
+
+      <line class="wire" x1="190" y1="210" x2="568" y2="210" marker-end="url(#arr)"/>
+      <text class="lt" x="380" y="202" text-anchor="middle">Token features · 68 KB and up</text>
+      <text class="ls" x="380" y="227" text-anchor="middle">GR00T, RoboDual, ComVLA. Size grows with the token count.</text>
+
+      <line class="wire" x1="190" y1="274" x2="568" y2="274" marker-end="url(#arr)"/>
+      <text class="lt" x="380" y="266" text-anchor="middle">Shared attention or KV cache · MBs</text>
+      <text class="ls" x="380" y="291" text-anchor="middle">π0, C2C. Needs the same chip, or heavy compression.</text>
+    </svg>
+  </div>
+
+  <h3>Prior work by field</h3>
+  <p class="muted">Each piece of this problem already has prior work, usually in a field that uses a different name for it.</p>
+  <div class="fields">
+    <div class="field" style="--c: var(--l1)">
+      <span class="fname">Robotics · hierarchical VLA</span>
+      <span class="idea">Latent link from planner to controller</span>
+      <ul><li><a href="https://arxiv.org/abs/2405.04798">LCB</a>, <a href="https://arxiv.org/abs/2410.08001">RoboDual</a>, <a href="https://arxiv.org/abs/2410.05273">HiRT</a> (2024)</li><li>HiRT trains the fast policy on stale latents</li><li>Figure Helix in production</li></ul>
+    </div>
+    <div class="field" style="--c: var(--l3)">
+      <span class="fname">Networking · split computing</span>
+      <span class="idea">Features sent over a slow network</span>
+      <ul><li><a href="https://arxiv.org/abs/2609.07838">ComVLA</a>: 16× less data, 95.4% vs 96.9% success</li><li><a href="https://arxiv.org/abs/2511.18151">AVERY</a>: 3 compression tiers, 94% less energy</li><li>Simulation only, robot to cloud</li></ul>
+    </div>
+    <div class="field" style="--c: var(--l2)">
+      <span class="fname">Commercial · cloud + edge</span>
+      <span class="idea">Cloud planner, on-robot controller</span>
+      <ul><li>Gemini Robotics: cloud model under 160 ms</li><li>~250 ms end to end, 50 Hz effective (<a href="https://arxiv.org/abs/2503.20020">tech report</a>)</li><li>What crosses the link is not published</li></ul>
+    </div>
+    <div class="field" style="--c: var(--l4)">
+      <span class="fname">Self-driving · collaborative perception</span>
+      <span class="idea">Robots sharing compressed features</span>
+      <ul><li><a href="https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123470596.pdf">V2VNet</a> (2020)</li><li><a href="https://proceedings.neurips.cc/paper_files/paper/2022/file/1f5c5cd01b864d53cc5fa0a3472e152e-Paper-Conference.pdf">Where2comm</a> (2022): over 100,000× less data</li></ul>
+    </div>
+    <div class="field" style="--c: var(--l1)">
+      <span class="fname">Telecom · task-oriented communication</span>
+      <span class="idea">Smallest message that still works</span>
+      <ul><li><a href="https://www.researchgate.net/publication/349124996_Learning_Task-Oriented_Communication_for_Edge_Inference_An_Information_Bottleneck_Approach">Information-bottleneck approach</a> (Shao et al.)</li><li>Trades bits sent against task accuracy</li></ul>
+    </div>
+    <div class="field" style="--c: var(--l3)">
+      <span class="fname">LLM serving · KV-cache transfer</span>
+      <span class="idea">KV caches over a network</span>
+      <ul><li><a href="https://arxiv.org/abs/2310.07240">CacheGen</a> compresses and streams KV caches</li><li><a href="https://www.tensormesh.ai/blog-posts/tensormesh-raises-20m-launches-inference-platform">Tensormesh</a>, $24.5M, same-model sharing</li></ul>
+    </div>
+    <div class="field" style="--c: var(--l2)">
+      <span class="fname">LLM multi-agent · latent communication</span>
+      <span class="idea">Latent messages between models trained apart</span>
+      <ul><li><a href="https://arxiv.org/abs/2510.03215">C2C</a>: 2.5× faster than text</li><li><a href="https://arxiv.org/abs/2511.20639">LatentMAS</a>: ~4× faster, 71–84% fewer tokens</li><li>Text tasks only</li></ul>
+    </div>
+  </div>
+
+  <div class="log">
+    <h3>Message size per update (log scale)</h3>
+    <div class="logrow"><span></span>
+      <div class="logaxis"><span style="left:14.3%">100 B</span><span style="left:28.6%">1 KB</span><span style="left:42.9%">10 KB</span><span style="left:57.1%">100 KB</span><span style="left:71.4%">1 MB</span><span style="left:85.7%">10 MB</span><span style="left:96%">100 MB</span></div>
+    </div>
+    <div class="logrow"><span>Text instruction, ~20 tokens</span><div class="logtrack"><div class="grid-lines"></div><div class="seg est" style="left:0;width:14.3%"></div><span class="v" style="left:15.5%">~100 B</span></div></div>
+    <div class="logrow"><span>One latent vector</span><div class="logtrack"><div class="grid-lines"></div><div class="seg est" style="left:0;width:37.3%"></div><span class="v" style="left:38.5%">~4 KB</span></div></div>
+    <div class="logrow"><span><a href="https://arxiv.org/abs/2609.07838">ComVLA</a> tokens</span><div class="logtrack"><div class="grid-lines"></div><div class="seg" style="left:0;width:54.8%"></div><span class="v" style="left:56%">68 KB · ~11 Mbit/s at 20 Hz</span></div></div>
+    <div class="logrow"><span><a href="https://arxiv.org/abs/2511.18151">AVERY</a> features</span><div class="logtrack"><div class="grid-lines"></div><div class="seg" style="left:0;width:78.1%"></div><span class="v" style="left:79.3%">0.83–2.9 MB</span></div></div>
+    <div class="logrow"><span>KV cache, ~800 tokens</span><div class="logtrack"><div class="grid-lines"></div><div class="seg est" style="left:0;width:99.2%"></div><span class="v" style="left:62%;">14–88 MB</span></div></div>
+    <div class="legend"><span class="l-strong" style="--accent: var(--l3)">From the paper</span><span class="l-weak" style="--weak: var(--l3)">My estimate from model configs</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Closest companies</h3>
+      <ul class="plain small">
+        <li>ZettaScale (Zenoh), Viam and Open-RMF move data between robots, fleets and the cloud.</li>
+        <li>Tensormesh sells KV-cache sharing between copies of one model.</li>
+        <li>ros-mcp-server, bb_mcp and phospho let LLM agents control robots through JSON tool calls over MCP.</li>
+        <li>Anduril Lattice and Shield AI Hivemind coordinate many drones inside one company's product.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Not yet checked</h3>
+      <ul class="plain small">
+        <li>A plug-and-play adapter between two frozen robot models from different teams.</li>
+        <li>KV-cache transfer from planner to controller on a robot.</li>
+      </ul>
+      <p class="small muted" style="margin-top:8px">Assume both exist until a search in each field above says otherwise.</p>
+    </div>
+  </div>
+</section>
+
+<section id="trackers">
+  <h2>Trackers for the long tail</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Tracker</th><th>Covers</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://humanoidindex.org/companies">Humanoid Index</a></td><td>950+ humanoid makers, investors and suppliers</td></tr>
+        <tr><td><a href="https://humanoid.guide/humanoid-robots-database/">Humanoid Guide database</a></td><td>220+ humanoid robot models</td></tr>
+        <tr><td><a href="https://robotics.techbuzzchina.com/">Tech Buzz China tracker</a></td><td>Chinese humanoid makers and supply chain</td></tr>
+        <tr><td><a href="https://www.cbinsights.com/research/the-physical-ai-models-market-map/">CB Insights physical AI map</a></td><td>70+ physical-AI model companies</td></tr>
+        <tr><td><a href="https://robotsandstartups.substack.com/">Robots &amp; Startups</a></td><td>Monthly robotics funding rounds</td></tr>
+        <tr><td><a href="https://news.crunchbase.com/robotics/">Crunchbase News: robotics</a></td><td>Funding reports by sector</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>Built from research notes in <span class="tag">~/.claude-bits/embodied-ai-sept-2026/</span>. Company lists came from four research passes and were reviewed by hand. Two made-up entries were removed during review.</p>
+  <p>Gaps: most Chinese makers do not publish deal terms, and surgical, hospital and cleaning robots are barely covered.</p>
+</footer>
+
+</div>
+
+</body></html>
