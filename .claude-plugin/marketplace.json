@@ -1,0 +1,13 @@
+{
+  "name": "polished-artifacts",
+  "description": "The polished-artifacts plugin: a human-first design language for Claude artifacts.",
+  "owner": { "name": "NovusEdge", "url": "https://github.com/NovusEdge" },
+  "plugins": [
+    {
+      "name": "polished-artifacts",
+      "source": "./",
+      "description": "Human-first design language for Claude artifacts, with Carbon and Apple looks and Manim animation.",
+      "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "manim"]
+    }
+  ]
+}

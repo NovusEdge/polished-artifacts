@@ -3,3 +3,5 @@ docs/superpowers/
 *.woff
 *.otf
 *.ttf
+.superpowers/
+node_modules/
