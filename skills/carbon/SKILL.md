@@ -45,3 +45,13 @@ Mermaid init values for this look (hex, because the artifact renderer can't read
 | `fontFamily` | `IBM Plex Sans, system-ui, sans-serif` | same |
 
 Use the light values unless the page is dark-only. Nodes stay plain rectangles.
+
+## References
+Check these before inventing a pattern the look doesn't cover:
+- [Carbon Design System](https://carbondesignsystem.com/)
+- [Color](https://carbondesignsystem.com/elements/color/overview/) and [color tokens](https://carbondesignsystem.com/elements/color/tokens/)
+- [Typography](https://carbondesignsystem.com/elements/typography/overview/) and [type sets](https://carbondesignsystem.com/elements/typography/type-sets/)
+- [2x Grid](https://carbondesignsystem.com/elements/2x-grid/overview/) and [spacing](https://carbondesignsystem.com/elements/spacing/overview/)
+- [Data visualization](https://carbondesignsystem.com/data-visualization/getting-started/) and [color palettes](https://carbondesignsystem.com/data-visualization/color-palettes/)
+- [Carbon Charts](https://charts.carbondesignsystem.com/)
+- [Accessibility](https://carbondesignsystem.com/guidelines/accessibility/overview/)
