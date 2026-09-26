@@ -5,3 +5,4 @@ docs/superpowers/
 *.ttf
 .superpowers/
 node_modules/
+__pycache__/
