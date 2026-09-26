@@ -32,6 +32,10 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - Carbon Charts with `theme: "white"` (light) or `"g100"` (dark), toolbar off, legend top-left, plus `vendor/carbon-charts.css` from core (published alongside the page).
 - Series colours in `--pa-cat-1…5` order; the focal series takes `--pa-cat-1`.
 - A chart that needs direct labels uses Recharts with the same tokens.
+- Carbon Charts draws axis ticks at 10px. Raise them: `.chart svg text { font-size: 12px !important; }` (with the chart's container carrying `class="chart"`).
+- Horizontal bar charts plot the first data item at the bottom. Pass the data reversed so the largest bar sits on top.
+- A log-scale axis needs an explicit `domain` whose lower bound sits below the smallest value, or that bar draws with zero length.
+- Without React, use `@carbon/charts` (the same library, vanilla): `new SimpleBarChart(el, { data, options })`.
 
 ## Diagrams
 Mermaid init values for this look (hex, because the artifact renderer can't read CSS variables):

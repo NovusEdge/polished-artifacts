@@ -29,6 +29,19 @@ test("core forbids raw filesystem paths in pages", () => {
   assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /filesystem path/i);
 });
 
+test("core names the layout traps found in the first real page", () => {
+  const md = readFileSync("skills/core/SKILL.md", "utf8");
+  assert.match(md, /minmax\(0, 1fr\)/);
+  assert.match(md, /sup/);
+  assert.match(readFileSync("skills/core/libraries.md", "utf8"), /pre\.mermaid \{[^}]*overflow-x: auto/);
+});
+
+test("carbon raises Carbon Charts' 10px ticks and orders bars largest first", () => {
+  const md = readFileSync("skills/carbon/SKILL.md", "utf8");
+  assert.match(md, /svg text \{ font-size: 12px/);
+  assert.match(md, /largest/i);
+});
+
 test("libraries.md embeds the generated import map verbatim", () => {
   const lib = readFileSync("skills/core/libraries.md", "utf8");
   const map = JSON.parse(readFileSync("skills/core/importmap.json", "utf8"));

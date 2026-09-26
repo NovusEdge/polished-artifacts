@@ -54,6 +54,11 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 - Any page using React pastes the import map from `importmap.json` before its first module script. Without it, libraries load their own React copies and hooks break.
 - Artifacts cannot fetch CSS from a CDN. Library stylesheets ship in this skill's `vendor/` folder: copy the one you need into the working or scratchpad directory, publish it with the page through the Artifact tool's `files` map, and link it with a relative `<link rel="stylesheet" href="./carbon-charts.css">`.
 
+## Layout traps
+
+- Every grid that holds a chart, table, share bar or diagram uses `grid-template-columns: minmax(0, 1fr)`. A plain `1fr` track grows to its widest child's content, and one `nowrap` element then widens the whole page.
+- Footnote markers: `sup { font-size: 12px; line-height: 0; }`. The browser default renders them under 12px.
+
 ## Accessibility and print
 
 Follow `accessibility.md`: keyboard reach and focus rings, a caption and data `<table>` for every chart, `accTitle`/`accDescr` on every Mermaid diagram, reduced motion, and a print stylesheet.

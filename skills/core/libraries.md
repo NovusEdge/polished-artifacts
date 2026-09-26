@@ -75,6 +75,8 @@ For local HTML files, link the vendor file by relative path instead.
 
 ## Mermaid
 
+Always style the block `pre.mermaid { margin: 0; overflow-x: auto; }`: where the diagram fails to render (a local file, a parse error), its source shows as text, and the long init line would otherwise widen the page.
+
 **Artifacts** render `<pre class="mermaid">` natively; do not load the library. Theme with an init line using the look's token values written out as hex (the renderer can't read CSS variables):
 
 ```html
