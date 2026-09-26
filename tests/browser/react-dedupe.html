@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>React dedupe</title>
+<script type="importmap">IMPORTMAP</script>
+</head><body>
+<div id="root"></div>
+<pre id="result">pending</pre>
+<script type="module">
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+import htm from "https://cdn.jsdelivr.net/npm/htm@3.1.1/+esm";
+import { LineChart, Line } from "https://cdn.jsdelivr.net/npm/recharts@3.10.1/+esm";
+import { ReactFlow } from "https://cdn.jsdelivr.net/npm/@xyflow/react@12.12.0/+esm";
+const html = htm.bind(React.createElement);
+const errors = [];
+window.addEventListener("error", e => errors.push(e.message));
+const origError = console.error;
+console.error = (...a) => { errors.push(a.join(" ")); origError(...a); };
+function App() {
+  const [n] = useState(3);
+  return html`<div>
+    <${LineChart} width=${300} height=${120} data=${[{v: 1}, {v: n}]}><${Line} dataKey="v" /><//>
+    <div style=${{width: 300, height: 200}}><${ReactFlow} nodes=${[{id: "a", position: {x: 0, y: 0}, data: {label: "a"}}]} edges=${[]} /></div>
+  </div>`;
+}
+createRoot(document.getElementById("root")).render(html`<${App} />`);
+setTimeout(() => {
+  document.getElementById("result").textContent = JSON.stringify({
+    rendered: !!document.querySelector(".recharts-wrapper") && !!document.querySelector(".react-flow"),
+    hookErrors: errors.filter(e => /hook|useState|Invalid/i.test(e)).length,
+  });
+}, 4000);
+</script>
+</body></html>

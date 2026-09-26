@@ -1,0 +1,18 @@
+{
+  "imports": {
+    "https://cdn.jsdelivr.net/npm/react@%5E19.3.0/+esm": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react@19.2.8/+esm": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react-dom@19.2.8/+esm": "https://cdn.jsdelivr.net/npm/react-dom@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react-is@19.2.8/+esm": "https://cdn.jsdelivr.net/npm/react-is@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react@19.2.0/+esm": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react@19.2.6/+esm": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react@19.1.0/+esm": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "https://cdn.jsdelivr.net/npm/react@19.0.0/+esm": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "react": "https://cdn.jsdelivr.net/npm/react@19.3.0/+esm",
+    "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@19.3.0/+esm",
+    "react-is": "https://cdn.jsdelivr.net/npm/react-is@19.3.0/+esm",
+    "scheduler": "https://cdn.jsdelivr.net/npm/scheduler@0.28.0/+esm",
+    "react-dom/client": "https://cdn.jsdelivr.net/npm/react-dom@19.3.0/client/+esm",
+    "react/jsx-runtime": "https://cdn.jsdelivr.net/npm/react@19.3.0/jsx-runtime/+esm"
+  }
+}
