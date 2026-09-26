@@ -48,7 +48,7 @@ Mermaid init values for this look (hex, because the artifact renderer can't read
 | `lineColor` | `#525252` | `#c6c6c6` |
 | `fontFamily` | `IBM Plex Sans, system-ui, sans-serif` | same |
 
-Use the light values unless the page is dark-only. Nodes stay plain rectangles.
+Write each diagram twice, a `mermaid-light` block with the light values and a `mermaid-dark` block with the dark values, toggled by theme as in core's libraries.md. Nodes stay plain rectangles.
 
 ## References
 Check these before inventing a pattern the look doesn't cover:

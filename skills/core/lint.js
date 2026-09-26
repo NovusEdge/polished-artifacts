@@ -1,7 +1,8 @@
 // Scores a rendered page on the four faults polished-artifacts exists to remove:
 // decorative colour, weak hierarchy, chip and card clutter, agent-first reading.
-// In a page: paste this file into a <script>, then `await polishedLint()`.
-const PA_EXEMPT = "a,button,input,select,textarea,summary,[role=button],svg,svg *,canvas,video,img,[data-encodes],[data-encodes] *";
+// In a page: paste this file into a <script>, then `polishedLintPass(await polishedLint())`.
+// Chart libraries colour their own legend swatches with series colours, which encode data.
+const PA_EXEMPT = "a,button,input,select,textarea,summary,[role=button],svg,svg *,canvas,video,img,[data-encodes],[data-encodes] *,[class*='cds--cc--'] *,.recharts-legend-wrapper *";
 const PA_THRESHOLDS = { decorativeColor: 0, smallText: 0, pills: 0, translucent: 0, longLists: 0 };
 
 function paRgb(s) {
@@ -65,4 +66,3 @@ function pass(r) {
 }
 
 if (typeof window !== "undefined") { window.polishedLint = polishedLint; window.polishedLintPass = pass; }
-export { pass, PA_THRESHOLDS as THRESHOLDS };

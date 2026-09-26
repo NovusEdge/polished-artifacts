@@ -42,6 +42,25 @@ test("carbon raises Carbon Charts' 10px ticks and orders bars largest first", ()
   assert.match(md, /largest/i);
 });
 
+test("core documents a lint call that works in evaluate_script", () => {
+  assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /async \(\) => \{/);
+});
+
+test("core keeps wide tables inside their own scroll container", () => {
+  assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /table-scroll/);
+});
+
+test("both looks give Mermaid a light and a dark block toggled by theme", () => {
+  for (const look of ["carbon", "apple"]) assert.match(readFileSync(`skills/${look}/SKILL.md`, "utf8"), /mermaid-dark/, look);
+  assert.match(readFileSync("skills/core/libraries.md", "utf8"), /\.mermaid-dark/);
+});
+
+test("print expands closed details, including their content", () => {
+  const a = readFileSync("skills/core/accessibility.md", "utf8");
+  assert.match(a, /::details-content/);
+  assert.match(a, /beforeprint/);
+});
+
 test("libraries.md embeds the generated import map verbatim", () => {
   const lib = readFileSync("skills/core/libraries.md", "utf8");
   const map = JSON.parse(readFileSync("skills/core/importmap.json", "utf8"));

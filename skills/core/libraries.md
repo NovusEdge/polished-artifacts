@@ -77,11 +77,20 @@ For local HTML files, link the vendor file by relative path instead.
 
 Always style the block `pre.mermaid { margin: 0; overflow-x: auto; }`: where the diagram fails to render (a local file, a parse error), its source shows as text, and the long init line would otherwise widen the page.
 
-**Artifacts** render `<pre class="mermaid">` natively; do not load the library. Theme with an init line using the look's token values written out as hex (the renderer can't read CSS variables):
+**Artifacts** render `<pre class="mermaid">` natively; do not load the library. The renderer can't read CSS variables or re-render on a theme change, so write each diagram twice: one block with the look's light init values (class `mermaid mermaid-light`) and one with its dark values (class `mermaid mermaid-dark`), and show one per theme:
+
+```css
+.mermaid-dark { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mermaid-light { display: none; } :root:not([data-theme="light"]) .mermaid-dark { display: block; } }
+:root[data-theme="dark"] .mermaid-light { display: none; }
+:root[data-theme="dark"] .mermaid-dark { display: block; }
+```
+
+The light block looks like this (the dark block repeats the diagram with the look's dark values):
 
 ```html
 <figure>
-<pre class="mermaid">
+<pre class="mermaid mermaid-light">
 %%{init: {"theme": "base", "flowchart": {"nodeSpacing": 32, "rankSpacing": 48, "padding": 16}, "themeVariables": {"fontFamily": "IBM Plex Sans, system-ui, sans-serif", "fontSize": "16px", "primaryColor": "#f4f4f4", "primaryTextColor": "#161616", "primaryBorderColor": "#e0e0e0", "lineColor": "#525252"}}}%%
 flowchart LR
   accTitle: Request path

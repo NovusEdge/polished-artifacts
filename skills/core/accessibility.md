@@ -37,11 +37,16 @@ The artifact viewer cannot open a print dialog, so never add a Print button. Rea
 ```css
 @media print {
   :root { color-scheme: light; }
-  details > *:not(summary) { display: block !important; }
-  details summary { display: none; }
+  details::details-content { content-visibility: visible; display: contents; }
   button, input, [data-print="hide"] { display: none !important; }
   figure, table { break-inside: avoid; }
 }
 ```
+
+```js
+addEventListener("beforeprint", () => document.querySelectorAll("details").forEach(d => (d.open = true)));
+```
+
+A closed `<details>` hides its content from print even when the CSS unhides its children, so both lines are needed. Keep the `<summary>` visible: it labels the section.
 
 Set the light theme's token values inside `@media print` as well, so a dark-mode reader prints a light page.

@@ -58,6 +58,7 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 
 - Every grid that holds a chart, table, share bar or diagram uses `grid-template-columns: minmax(0, 1fr)`. A plain `1fr` track grows to its widest child's content, and one `nowrap` element then widens the whole page.
 - Footnote markers: `sup { font-size: 12px; line-height: 0; }`. The browser default renders them under 12px.
+- Every table sits in `<div class="table-scroll">` with `.table-scroll { overflow-x: auto; }`, and diagram SVGs get `max-width: 100%`. At 375px a four-column table already overflows, and without its own container it scrolls the whole page.
 
 ## Accessibility and print
 
@@ -65,4 +66,4 @@ Follow `accessibility.md`: keyboard reach and focus rings, a caption and data `<
 
 ## Before publishing
 
-Run `checklist.md`. In Claude Code, also open the local file in chrome-devtools, run `lint.js` there (`evaluate_script` with the file's contents, then `await polishedLint()`), in both themes at 375px and 1280px, and fix every failure before publishing.
+Run `checklist.md`. In Claude Code, also open the local file in chrome-devtools and run `lint.js` there with `evaluate_script`, passing the file's contents inside a function: `async () => { <contents of lint.js>; const r = await polishedLint(); return { pass: polishedLintPass(r), ...r }; }`. Check both themes (set `document.documentElement.dataset.theme`) at 375px and 1280px, and fix every failure before publishing.

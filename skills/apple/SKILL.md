@@ -45,6 +45,8 @@ Mermaid init values for this look (hex, because the artifact renderer can't read
 | `background` | `#f2f2f7` | `#000000` |
 | `fontFamily` | `-apple-system, system-ui, sans-serif` | same |
 
+Write each diagram twice, a `mermaid-light` block with the light values and a `mermaid-dark` block with the dark values, toggled by theme as in core's libraries.md.
+
 ## References
 Check these before inventing a pattern the look doesn't cover:
 - [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines)
