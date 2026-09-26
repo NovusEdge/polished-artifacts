@@ -34,6 +34,8 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 - Pick encodings by accuracy: position, then length, then angle or area. No pie beyond three slices. No 3D charts of 2D data.
 - Label data directly. A legend only when labels don't fit, placed above the chart in series order.
 - Diagrams: one accent colour, at most two focal elements, spacing in multiples of 8 (Mermaid `nodeSpacing`, `rankSpacing`, `padding`; ELK spacing).
+- Diagram colours come from `mermaid.css` (this folder), pasted into the page's `<style>`. It restyles Mermaid's output with the `--pa-*` tokens, so one diagram block follows the theme; mark the focal node with `class X focus`. Never rely on `%%{init}%%` colours: the artifact viewer ignores them.
+- Keep diagrams compact. A chain longer than three nodes wraps into rows: `flowchart TB` holding `subgraph` rows that each set `direction LR`. One centre with many related parts is a hub and spoke (star): the centre node linked to each part.
 - Motion shows a real state change only: 300ms or less, `cubic-bezier(0.23, 1, 0.32, 1)`, off under `prefers-reduced-motion`.
 
 ## Libraries

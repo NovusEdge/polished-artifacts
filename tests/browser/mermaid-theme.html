@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Mermaid theme</title>
+<style>
+:root{--pa-bg:#ffffff;--pa-surface:#f4f4f4;--pa-text:#161616;--pa-text-2:#525252;--pa-border:#e0e0e0;--pa-font-sans:system-ui,sans-serif}
+:root[data-theme="dark"]{--pa-bg:#161616;--pa-surface:#262626;--pa-text:#f4f4f4;--pa-text-2:#c6c6c6;--pa-border:#393939}
+body{background:var(--pa-bg);color:var(--pa-text)}
+MERMAID_CSS
+</style></head><body>
+<pre class="mermaid">
+flowchart LR
+  A[Planner] -- "latent vector" --> B[Controller]
+</pre>
+<pre id="result">pending</pre>
+<script type="module">
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@12.0.0/+esm";
+mermaid.initialize({ startOnLoad: false });
+await mermaid.run({ querySelector: "pre.mermaid" });
+const rgb = s => (s.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+const lum = c => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; const [r, g, b] = c.map(f); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+const ratio = (a, b) => { const [h, l] = [lum(a), lum(b)].sort((x, y) => y - x); return (h + 0.05) / (l + 0.05); };
+const node = document.querySelector("pre.mermaid svg .node rect, pre.mermaid svg .node polygon");
+const label = document.querySelector("pre.mermaid svg .nodeLabel, pre.mermaid svg .node text");
+const edgeLabel = document.querySelector("pre.mermaid svg .edgeLabel span, pre.mermaid svg .edgeLabel p, pre.mermaid svg .edgeLabel text");
+const edge = document.querySelector("pre.mermaid svg .flowchart-link, pre.mermaid svg .edgePath path");
+const bg = rgb(getComputedStyle(document.body).backgroundColor);
+const nodeFill = rgb(getComputedStyle(node).fill);
+const labelColor = rgb(getComputedStyle(label).color || getComputedStyle(label).fill);
+const edgeLabelColor = rgb(getComputedStyle(edgeLabel).color);
+const edgeStroke = rgb(getComputedStyle(edge).stroke);
+document.getElementById("result").textContent = JSON.stringify({
+  label: +ratio(labelColor, nodeFill).toFixed(2),
+  edgeLabel: +ratio(edgeLabelColor, bg).toFixed(2),
+  edge: +ratio(edgeStroke, bg).toFixed(2),
+});
+</script>
+</body></html>

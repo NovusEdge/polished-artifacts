@@ -75,31 +75,32 @@ For local HTML files, link the vendor file by relative path instead.
 
 ## Mermaid
 
-Always style the block `pre.mermaid { margin: 0; overflow-x: auto; }`: where the diagram fails to render (a local file, a parse error), its source shows as text, and the long init line would otherwise widen the page.
+Paste `mermaid.css` (this folder) into the page's `<style>`, after the look's tokens. It restyles whatever Mermaid renders (nodes, labels, edges, arrowheads) with the `--pa-*` tokens, so a single diagram block follows the page theme. The artifact viewer renders Mermaid in its default theme and ignores `%%{init}%%` colours, which is why colour is done in CSS. The file also keeps unrendered source from widening the page.
 
-**Artifacts** render `<pre class="mermaid">` natively; do not load the library. The renderer can't read CSS variables or re-render on a theme change, so write each diagram twice: one block with the look's light init values (class `mermaid mermaid-light`) and one with its dark values (class `mermaid mermaid-dark`), and show one per theme:
-
-```css
-.mermaid-dark { display: none; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mermaid-light { display: none; } :root:not([data-theme="light"]) .mermaid-dark { display: block; } }
-:root[data-theme="dark"] .mermaid-light { display: none; }
-:root[data-theme="dark"] .mermaid-dark { display: block; }
-```
-
-The light block looks like this (the dark block repeats the diagram with the look's dark values):
+**Artifacts** render `<pre class="mermaid">` natively; do not load the library. A diagram that would be a long chain wraps into rows:
 
 ```html
 <figure>
-<pre class="mermaid mermaid-light">
-%%{init: {"theme": "base", "flowchart": {"nodeSpacing": 32, "rankSpacing": 48, "padding": 16}, "themeVariables": {"fontFamily": "IBM Plex Sans, system-ui, sans-serif", "fontSize": "16px", "primaryColor": "#f4f4f4", "primaryTextColor": "#161616", "primaryBorderColor": "#e0e0e0", "lineColor": "#525252"}}}%%
-flowchart LR
-  accTitle: Request path
-  accDescr: A request goes from the browser to the API, which reads the database.
-  Browser --> API --> DB[(Database)]
+<pre class="mermaid">
+flowchart TB
+  accTitle: The four layers of the industry
+  accDescr: Parts supply robot brains, which supply robot makers, which supply single-job robots.
+  subgraph lower [" "]
+    direction LR
+    P[Picks and shovels] --> B[Robot brains]
+  end
+  subgraph upper [" "]
+    direction LR
+    M[Robot makers] --> S[Single-job robots]
+  end
+  B --> M
+  class S focus
 </pre>
-<figcaption>Every request crosses one API hop.</figcaption>
+<figcaption>Each layer supplies the next.</figcaption>
 </figure>
 ```
+
+A hub and spoke (star) puts one node at the centre: `flowchart LR` with `Hub --- A`, `Hub --- B`, and so on.
 
 **Local HTML** loads Mermaid and re-renders on theme change:
 

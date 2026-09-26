@@ -33,7 +33,7 @@ test("core names the layout traps found in the first real page", () => {
   const md = readFileSync("skills/core/SKILL.md", "utf8");
   assert.match(md, /minmax\(0, 1fr\)/);
   assert.match(md, /sup/);
-  assert.match(readFileSync("skills/core/libraries.md", "utf8"), /pre\.mermaid \{[^}]*overflow-x: auto/);
+  assert.match(readFileSync("skills/core/mermaid.css", "utf8"), /pre\.mermaid \{[^}]*overflow-x: auto/);
 });
 
 test("carbon raises Carbon Charts' 10px ticks and orders bars largest first", () => {
@@ -50,9 +50,19 @@ test("core keeps wide tables inside their own scroll container", () => {
   assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /table-scroll/);
 });
 
-test("both looks give Mermaid a light and a dark block toggled by theme", () => {
-  for (const look of ["carbon", "apple"]) assert.match(readFileSync(`skills/${look}/SKILL.md`, "utf8"), /mermaid-dark/, look);
-  assert.match(readFileSync("skills/core/libraries.md", "utf8"), /\.mermaid-dark/);
+test("diagrams take their colours from mermaid.css, not init values", () => {
+  assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /mermaid\.css/);
+  for (const look of ["carbon", "apple"]) {
+    const md = readFileSync(`skills/${look}/SKILL.md`, "utf8");
+    assert.match(md, /mermaid\.css/, look);
+    assert.doesNotMatch(md, /primaryTextColor/, `${look} still lists init colours`);
+  }
+});
+
+test("core asks for compact diagram shapes instead of long single-axis chains", () => {
+  const md = readFileSync("skills/core/SKILL.md", "utf8");
+  assert.match(md, /direction LR/);
+  assert.match(md, /hub|star/i);
 });
 
 test("print expands closed details, including their content", () => {

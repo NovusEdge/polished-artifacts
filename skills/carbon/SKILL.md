@@ -38,17 +38,7 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - Without React, use `@carbon/charts` (the same library, vanilla): `new SimpleBarChart(el, { data, options })`.
 
 ## Diagrams
-Mermaid init values for this look (hex, because the artifact renderer can't read CSS variables):
-
-| Variable | Light | Dark |
-|---|---|---|
-| `primaryColor` | `#f4f4f4` | `#262626` |
-| `primaryTextColor` | `#161616` | `#f4f4f4` |
-| `primaryBorderColor` | `#e0e0e0` | `#393939` |
-| `lineColor` | `#525252` | `#c6c6c6` |
-| `fontFamily` | `IBM Plex Sans, system-ui, sans-serif` | same |
-
-Write each diagram twice, a `mermaid-light` block with the light values and a `mermaid-dark` block with the dark values, toggled by theme as in core's libraries.md. Nodes stay plain rectangles.
+Paste core's `mermaid.css` after this look's tokens; it colours every diagram from `--pa-*` in both themes. Nodes stay square rectangles (Carbon's radius is 0), which is Mermaid's default flowchart shape.
 
 ## References
 Check these before inventing a pattern the look doesn't cover:

@@ -34,18 +34,7 @@ No `backdrop-filter`, no blur, no translucent or frosted panels, no vibrancy. Su
 Recharts with `--pa-cat-1…5`, 4px rounded bar ends, axis text 12px `--pa-text-2`, gridlines 1px `--pa-border`, and direct `<LabelList>` labels.
 
 ## Diagrams
-Mermaid init values for this look (hex, because the artifact renderer can't read CSS variables), plus `"themeCSS": ".node rect { rx: 8px; ry: 8px; }"` for rounded nodes:
-
-| Variable | Light | Dark |
-|---|---|---|
-| `primaryColor` | `#ffffff` | `#1c1c1e` |
-| `primaryTextColor` | `#000000` | `#ffffff` |
-| `primaryBorderColor` | `#d1d1d6` | `#38383a` |
-| `lineColor` | `#3c3c43` | `#ebebf5` |
-| `background` | `#f2f2f7` | `#000000` |
-| `fontFamily` | `-apple-system, system-ui, sans-serif` | same |
-
-Write each diagram twice, a `mermaid-light` block with the light values and a `mermaid-dark` block with the dark values, toggled by theme as in core's libraries.md.
+Paste core's `mermaid.css` after this look's tokens; it colours every diagram from `--pa-*` in both themes. For rounded nodes add `pre.mermaid svg .node rect { rx: 8px; ry: 8px; }`.
 
 ## References
 Check these before inventing a pattern the look doesn't cover:
