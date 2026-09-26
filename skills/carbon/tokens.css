@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400&display=swap");
+:root {
+  color-scheme: light;
+  --pa-bg: #ffffff; --pa-surface: #f4f4f4; --pa-text: #161616; --pa-text-2: #525252; --pa-border: #e0e0e0;
+  --pa-interactive: #0f62fe; --pa-link: #0f62fe; --pa-focus: #0f62fe;
+  --pa-cat-1: #6929c4; --pa-cat-2: #1192e8; --pa-cat-3: #005d5d; --pa-cat-4: #9f1853; --pa-cat-5: #fa4d56;
+  --pa-font-sans: "IBM Plex Sans", system-ui, sans-serif; --pa-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --pa-fs-caption: 12px; --pa-lh-caption: 16px; --pa-fs-body: 16px; --pa-lh-body: 24px;
+  --pa-fs-h3: 20px; --pa-lh-h3: 28px; --pa-fs-h2: 28px; --pa-lh-h2: 36px; --pa-fs-h1: 42px; --pa-lh-h1: 50px;
+  --pa-radius: 0; --pa-shadow: none;
+  --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 96px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --pa-bg: #161616; --pa-surface: #262626; --pa-text: #f4f4f4; --pa-text-2: #c6c6c6; --pa-border: #393939;
+  --pa-interactive: #4589ff; --pa-link: #78a9ff; --pa-focus: #ffffff;
+  --pa-cat-1: #8a3ffc; --pa-cat-2: #33b1ff; --pa-cat-3: #007d79; --pa-cat-4: #ff7eb6; --pa-cat-5: #fa4d56;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pa-bg: #161616; --pa-surface: #262626; --pa-text: #f4f4f4; --pa-text-2: #c6c6c6; --pa-border: #393939;
+  --pa-interactive: #4589ff; --pa-link: #78a9ff; --pa-focus: #ffffff;
+  --pa-cat-1: #8a3ffc; --pa-cat-2: #33b1ff; --pa-cat-3: #007d79; --pa-cat-4: #ff7eb6; --pa-cat-5: #fa4d56;
+}
+body { background: var(--pa-bg); color: var(--pa-text); font: var(--pa-fs-body)/var(--pa-lh-body) var(--pa-font-sans); }
