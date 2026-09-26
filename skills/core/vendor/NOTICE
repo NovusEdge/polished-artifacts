@@ -1,0 +1,3 @@
+carbon-charts.css: @carbon/charts 1.27.20 dist/styles.min.css, Apache-2.0, (c) IBM Corp.
+xyflow.css: @xyflow/react 12.12.0 dist/style.css, MIT, (c) webkid GmbH.
+Unmodified copies from cdn.jsdelivr.net, shipped so artifact pages can publish them alongside the page.
