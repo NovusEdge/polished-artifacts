@@ -93,12 +93,14 @@ flowchart TB
     direction LR
     M[Robot makers] --> S[Single-job robots]
   end
-  B --> M
+  lower --> upper
   class S focus
 </pre>
 <figcaption>Each layer supplies the next.</figcaption>
 </figure>
 ```
+
+Link the rows subgraph to subgraph (`lower --> upper`). Mermaid ignores a subgraph's `direction` as soon as any node inside it links to a node outside, and the rows collapse back into one tall column.
 
 A hub and spoke (star) puts one node at the centre: `flowchart LR` with `Hub --- A`, `Hub --- B`, and so on.
 

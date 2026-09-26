@@ -2,8 +2,10 @@
    block follows the page theme. The artifact viewer ignores %%{init}%% colours. */
 pre.mermaid { margin: 0; background: none; overflow-x: auto; }
 pre.mermaid svg { max-width: 100%; height: auto; }
+pre.mermaid svg .cluster rect { fill: none !important; stroke: none !important; }
+.mermaidTooltip { background: var(--pa-surface) !important; color: var(--pa-text) !important; border: 1px solid var(--pa-border) !important; }
 pre.mermaid svg .node rect, pre.mermaid svg .node polygon, pre.mermaid svg .node circle,
-pre.mermaid svg .node ellipse, pre.mermaid svg .node path, pre.mermaid svg .cluster rect,
+pre.mermaid svg .node ellipse, pre.mermaid svg .node path,
 pre.mermaid svg .actor, pre.mermaid svg rect.note {
   fill: var(--pa-surface) !important; stroke: var(--pa-border) !important;
 }
