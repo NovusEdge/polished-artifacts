@@ -47,5 +47,5 @@ Check these before inventing a pattern the look doesn't cover:
 
 ## Fonts
 Satoshi is an owner-only opt-in, on when `~/.local/share/fonts/Satoshi/Satoshi-Variable.woff2` exists.
-- Local HTML: `@font-face { font-family: Satoshi; src: url("file://$HOME/.local/share/fonts/Satoshi/Satoshi-Variable.woff2") format("woff2"); font-weight: 300 900; }` with `$HOME` written out, then `--pa-font-sans: Satoshi, -apple-system, system-ui, sans-serif;`.
+- Local HTML: `@font-face { font-family: Satoshi; src: local("Satoshi Variable"); font-weight: 300 900; }`, then `--pa-font-sans: Satoshi, -apple-system, system-ui, sans-serif;`. The installed family is named "Satoshi Variable", so a bare `Satoshi` in the font stack falls through to the next font, and browsers block `file://` font URLs from pages served over http.
 - Published artifacts: follow `fonts.md` in this folder if it exists; otherwise use the system stack.

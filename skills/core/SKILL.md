@@ -36,6 +36,16 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 - Diagrams: one accent colour, at most two focal elements, spacing in multiples of 8 (Mermaid `nodeSpacing`, `rankSpacing`, `padding`; ELK spacing).
 - Diagram colours come from `mermaid.css` (this folder), pasted into the page's `<style>`. It restyles Mermaid's output with the `--pa-*` tokens, so one diagram block follows the theme; mark the focal node with `class X focus`. Never rely on `%%{init}%%` colours: the artifact viewer ignores them.
 - Keep diagrams compact. A chain longer than three nodes wraps into rows: `flowchart TB` holding `subgraph` rows that each set `direction LR`. One centre with many related parts is a hub and spoke (star): the centre node linked to each part.
+- A layered stack, where each layer supplies or runs on the one below, is drawn as HTML bands, not a flowchart: an `<ol>` of full-width rows, foundation at the bottom, each band holding the layer's name, what it does and its top examples, with a small "↑ supplies" connector between bands. The bands replace the separate table. Mermaid is for graphs that branch, merge or loop.
+
+## Charts
+
+- No gridlines. Keep the value axis only when the marks carry no labels, or when the scale needs showing (log). Recharts: omit `<CartesianGrid>`. Carbon Charts: turn the grid off (see carbon).
+- Print the value on each bar or mark (`<LabelList>`), so nobody reads numbers off an axis.
+- Bars are thick: the gap between bars is at most the bar's width.
+- A second colour for "the rest" is a real neutral mark colour with a key above the chart, never the text colour.
+- Never draw bars on a log axis: bar length then depends on where the axis starts. Use a line chart when the categories have an order (sizes by type, values over time), a dot plot otherwise.
+- Fills come from CSS classes on the marks (`className` on `<Cell>`, `.recharts-line-curve` for lines) that read `--pa-*`, so a theme switch recolours the chart without re-rendering.
 - Motion shows a real state change only: 300ms or less, `cubic-bezier(0.23, 1, 0.32, 1)`, off under `prefers-reduced-motion`.
 
 ## Libraries

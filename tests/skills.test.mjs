@@ -65,6 +65,29 @@ test("core asks for compact diagram shapes instead of long single-axis chains", 
   assert.match(md, /hub|star/i);
 });
 
+test("core draws a layered stack as bands, not a flowchart", () => {
+  assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /stack.*bands/i);
+});
+
+test("core charts drop gridlines, label values on marks, and never put bars on a log axis", () => {
+  const md = readFileSync("skills/core/SKILL.md", "utf8");
+  assert.match(md, /no gridlines/i);
+  assert.match(md, /value.*on (each|the) (bar|mark)/i);
+  assert.match(md, /log axis/i);
+  assert.match(md, /line chart/i);
+});
+
+test("carbon turns off Carbon Charts' grid and sends bar charts to Recharts", () => {
+  const md = readFileSync("skills/carbon/SKILL.md", "utf8");
+  assert.match(md, /grid: \{ x: \{ enabled: false \}, y: \{ enabled: false \} \}/);
+  assert.match(md, /truncation: \{ type: "none" \}/);
+  assert.match(md, /Bar charts use Recharts/);
+});
+
+test("apple's local Satoshi rule uses the installed family name", () => {
+  assert.match(readFileSync("skills/apple/SKILL.md", "utf8"), /local\("Satoshi Variable"\)/);
+});
+
 test("print expands closed details, including their content", () => {
   const a = readFileSync("skills/core/accessibility.md", "utf8");
   assert.match(a, /::details-content/);
