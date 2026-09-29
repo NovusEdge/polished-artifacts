@@ -19,7 +19,7 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 - Each section opens with its takeaway as a headline sentence. The figure below proves it.
 - Order: answer, evidence, detail, sources.
 - Lists show the top 5–7 items. The rest go in `<details><summary>Show all N</summary>…</details>` or an appendix table. Never render dozens of names as badges or chips.
-- Body text uses the look's size (Carbon 16px, Apple 17px). Lines run 60–75 characters (`max-width: 68ch`).
+- Body text uses the look's size (Carbon 16px, Apple 17px). Text runs the full width of its column: no `max-width` in `ch` or px on paragraphs, ledes, section heads, captions or list text. The owner found 60–75-character measures left most of a wide page empty. Width comes from the layout grid and the page's outer `max-width`.
 - Labels are 12px or larger, sentence case, in the body face. No uppercase eyebrows. Monospace is for code only; numbers use `font-variant-numeric: tabular-nums`.
 - Every figure sits in a `<figure>` with a one-line `<figcaption>` saying what to notice.
 - Sources are numbered footnotes at the end. Nothing depends on hover.
