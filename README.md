@@ -18,6 +18,8 @@ A Claude Code plugin that gives Claude-built artifacts one design language, writ
 
 ### Codex
 
+From the Nimble Fox team marketplace, which is private to the `nimble-fox-ai` organization:
+
 ```sh
 codex plugin marketplace add nimble-fox-ai/agent-plugins
 codex plugin add polished-artifacts@nimble-fox
