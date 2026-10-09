@@ -16,6 +16,19 @@ A Claude Code plugin that gives Claude-built artifacts one design language, writ
 /plugin install polished-artifacts@polished-artifacts
 ```
 
+### Codex
+
+From the Nimble Fox team marketplace, which is private to the `nimble-fox-ai` organization:
+
+```sh
+codex plugin marketplace add nimble-fox-ai/agent-plugins
+codex plugin add polished-artifacts@nimble-fox
+```
+
+Codex reads the root `plugin.json`; Claude Code reads `.claude-plugin/plugin.json`. Both load the same `skills/` directory, so nothing is copied. Keep the two manifests' `name` and `version` equal (`tests/manifest.test.mjs` checks).
+
+All four skills carry over. The plugin has no agents, hooks, commands or MCP servers, so there is nothing else to port. The skills are written for Claude artifacts; in Codex they apply to any standalone HTML page you ask for.
+
 ## Use
 
 Ask for an artifact. Claude asks "Carbon or Apple look?" once per conversation and follows the language from there.
