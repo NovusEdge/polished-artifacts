@@ -1,7 +1,7 @@
 {
   "name": "polished-artifacts",
   "displayName": "Polished Artifacts",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A human-first design language for Claude artifacts: reading and encoding rules, IBM Carbon and Apple (no glass) looks, and Manim animation.",
   "author": { "name": "NovusEdge" },
   "license": "MIT",
