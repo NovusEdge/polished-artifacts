@@ -1,0 +1,29 @@
+@font-face { font-family: "et-book"; src: url("./et-book-roman.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "et-book"; src: url("./et-book-italic.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "et-book"; src: url("./et-book-bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
+:root {
+  color-scheme: light;
+  --pa-bg: #fffff8; --pa-surface: #f6f5ea; --pa-text: #111111; --pa-text-2: #5c5b55; --pa-border: #e2e1d6;
+  --pa-interactive: #8b0000; --pa-link: #111111; --pa-focus: #8b0000;
+  --pa-cat-1: #8b0000; --pa-cat-2: #14202e; --pa-cat-3: #2a623d; --pa-cat-4: #85837a; --pa-cat-5: #94661c;
+  --pa-font-sans: "et-book", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif; --pa-font-mono: ui-monospace, Menlo, Consolas, monospace;
+  --pa-fs-caption: 14px; --pa-lh-caption: 20px; --pa-fs-body: 20px; --pa-lh-body: 30px;
+  --pa-fs-h3: 26px; --pa-lh-h3: 32px; --pa-fs-h2: 40px; --pa-lh-h2: 46px; --pa-fs-h1: 60px; --pa-lh-h1: 62px;
+  --pa-radius: 0; --pa-shadow: none;
+  --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 96px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --pa-bg: #151513; --pa-surface: #1f1f1c; --pa-text: #f2f1e8; --pa-text-2: #a9a79c; --pa-border: #3a3934;
+  --pa-interactive: #f07a72; --pa-link: #f2f1e8; --pa-focus: #f07a72;
+  --pa-cat-1: #f07a72; --pa-cat-2: #8fb3d9; --pa-cat-3: #7fb38f; --pa-cat-4: #a9a79c; --pa-cat-5: #d4b25e;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pa-bg: #151513; --pa-surface: #1f1f1c; --pa-text: #f2f1e8; --pa-text-2: #a9a79c; --pa-border: #3a3934;
+  --pa-interactive: #f07a72; --pa-link: #f2f1e8; --pa-focus: #f07a72;
+  --pa-cat-1: #f07a72; --pa-cat-2: #8fb3d9; --pa-cat-3: #7fb38f; --pa-cat-4: #a9a79c; --pa-cat-5: #d4b25e;
+}
+body { background: var(--pa-bg); color: var(--pa-text); font: var(--pa-fs-body)/var(--pa-lh-body) var(--pa-font-sans); }
+h1, h2, h3 { font-weight: 400; }
+@media (max-width: 767px) { :root { --pa-fs-body: 18px; --pa-lh-body: 27px; --pa-fs-h1: 40px; --pa-lh-h1: 44px; --pa-fs-h2: 30px; --pa-lh-h2: 36px; } }

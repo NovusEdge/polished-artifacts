@@ -1,6 +1,6 @@
 ---
 name: core
-description: Design language for Claude artifacts and standalone HTML pages (reports, market research, explainers, dashboards, explorables, 3D). Use before building or editing any artifact or HTML page. Loads with the carbon or apple look.
+description: Design language for Claude artifacts and standalone HTML pages (reports, market research, explainers, dashboards, explorables, 3D). Use before building or editing any artifact or HTML page. Loads with one look: carbon, apple, primer, editorial, material, clay or studio.
 ---
 
 # polished-artifacts: core
@@ -11,7 +11,17 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 
 1. If the `artifact-design` skill is not loaded in this conversation, load it now. It owns the page contract (title, theme tokens, CDN allowlist, phone width, no skeleton tags in artifacts). Follow it on those.
 2. This plugin overrides `artifact-design` on style, and replaces `artifact-diagramming`: never write SVG coordinates by hand. Diagrams come from Mermaid, React Flow or D3 (see Libraries).
-3. Pick the look. If this conversation already chose Carbon or Apple, reuse it unless the user names the other. Otherwise ask once: "Carbon or Apple look?" Then load `polished-artifacts:carbon` or `polished-artifacts:apple`. Both define the same `--pa-*` tokens; use only those for colour, type and space.
+3. Pick the look. If this conversation already chose one, reuse it unless the user names another. Otherwise ask once, naming the look from this table that fits the content as the recommended option, then load `polished-artifacts:<look>`. Every look defines the same `--pa-*` tokens; use only those for colour, type and space.
+
+| Look | Suits |
+|---|---|
+| `carbon` | Dense data reports and dashboards |
+| `apple` | Short, spacious explainers and summaries |
+| `primer` | Engineering docs, RFCs, code-heavy pages |
+| `editorial` | Long reports, research write-ups, scenario narratives |
+| `material` | Product explainers and friendly dashboards |
+| `clay` | Essays and announcements in a warm tone |
+| `studio` | Launch posts and image-led explainers |
 
 ## Reading
 
@@ -19,7 +29,7 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 - Each section opens with its takeaway as a headline sentence. The figure below proves it.
 - Order: answer, evidence, detail, sources.
 - Lists show the top 5–7 items. The rest go in `<details><summary>Show all N</summary>…</details>` or an appendix table. Never render dozens of names as badges or chips.
-- Body text uses the look's size (Carbon 16px, Apple 17px). Text runs the full width of its column: no `max-width` in `ch` or px on paragraphs, ledes, section heads, captions or list text. The owner found 60–75-character measures left most of a wide page empty. Width comes from the layout grid and the page's outer `max-width`.
+- Body text uses the look's `--pa-fs-body`. Text runs the full width of its column: no `max-width` in `ch` or px on paragraphs, ledes, section heads, captions or list text. The owner found 60–75-character measures left most of a wide page empty. Width comes from the layout grid and the page's outer `max-width`.
 - Labels are 12px or larger, sentence case, in the body face. No uppercase eyebrows. Monospace is for code only; numbers use `font-variant-numeric: tabular-nums`.
 - Every figure sits in a `<figure>` with a one-line `<figcaption>` saying what to notice.
 - Sources are numbered footnotes at the end. Nothing depends on hover.
@@ -57,7 +67,7 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 | Structure and text | Plain HTML. Add React only for interactive components. |
 | Diagrams | Artifacts: native `<pre class="mermaid">`. Local HTML: Mermaid ESM. React Flow + elkjs when the reader should drag or explore. |
 | Graph layouts | d3-force, d3-hierarchy, d3-sankey inside a React component |
-| Charts | Carbon look: Carbon Charts (Recharts when direct labels are needed). Apple look: Recharts. D3 for custom charts in either. |
+| Charts | Carbon look: Carbon Charts (Recharts when direct labels are needed). Every other look: Recharts. D3 for custom charts in any look. |
 | Motion | CSS transitions; GSAP for timelines and scroll sequences; anime.js as the lighter option |
 | Explorables | Range inputs driving state; p5.js for simulations |
 | 3D | three.js, or react-three-fiber inside React |

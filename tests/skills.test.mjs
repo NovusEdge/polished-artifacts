@@ -1,8 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 
-const SKILLS = ["core", "carbon", "apple", "manim"];
+const SKILLS = readdirSync("skills").filter(d => existsSync(`skills/${d}/SKILL.md`));
+const LOOKS = readdirSync("skills").filter(d => existsSync(`skills/${d}/tokens.css`));
 for (const s of SKILLS) {
   test(`${s}/SKILL.md exists, has frontmatter, and is under 150 lines`, { skip: !existsSync(`skills/${s}/SKILL.md`) }, () => {
     const md = readFileSync(`skills/${s}/SKILL.md`, "utf8");
@@ -52,7 +53,7 @@ test("core keeps wide tables inside their own scroll container", () => {
 
 test("diagrams take their colours from mermaid.css, not init values", () => {
   assert.match(readFileSync("skills/core/SKILL.md", "utf8"), /mermaid\.css/);
-  for (const look of ["carbon", "apple"]) {
+  for (const look of LOOKS) {
     const md = readFileSync(`skills/${look}/SKILL.md`, "utf8");
     assert.match(md, /mermaid\.css/, look);
     assert.doesNotMatch(md, /primaryTextColor/, `${look} still lists init colours`);

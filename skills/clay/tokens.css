@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap");
+:root {
+  color-scheme: light;
+  --pa-bg: #faf9f5; --pa-surface: #f0eee6; --pa-text: #141413; --pa-text-2: #5e5d59; --pa-border: #dedcd1;
+  --pa-interactive: #a94f2c; --pa-link: #141413; --pa-focus: #2c84db;
+  --pa-cat-1: #c6613f; --pa-cat-2: #4f84b8; --pa-cat-3: #6b7f50; --pa-cat-4: #b4577a; --pa-cat-5: #7a7972;
+  --pa-font-sans: "Source Serif 4", Georgia, serif; --pa-font-display: "Instrument Sans", system-ui, sans-serif; --pa-font-mono: ui-monospace, Menlo, monospace;
+  --pa-fs-caption: 13px; --pa-lh-caption: 18px; --pa-fs-body: 17px; --pa-lh-body: 27px;
+  --pa-fs-h3: 22px; --pa-lh-h3: 28px; --pa-fs-h2: 32px; --pa-lh-h2: 38px; --pa-fs-h1: 48px; --pa-lh-h1: 53px;
+  --pa-radius: 8px; --pa-shadow: none;
+  --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 96px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --pa-bg: #141413; --pa-surface: #1f1e1d; --pa-text: #faf9f5; --pa-text-2: #b0aea5; --pa-border: #3d3d3a;
+  --pa-interactive: #e08a6d; --pa-link: #faf9f5; --pa-focus: #6a9bcc;
+  --pa-cat-1: #e08a6d; --pa-cat-2: #8fb7e0; --pa-cat-3: #9bb07f; --pa-cat-4: #d88ba4; --pa-cat-5: #b0aea5;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pa-bg: #141413; --pa-surface: #1f1e1d; --pa-text: #faf9f5; --pa-text-2: #b0aea5; --pa-border: #3d3d3a;
+  --pa-interactive: #e08a6d; --pa-link: #faf9f5; --pa-focus: #6a9bcc;
+  --pa-cat-1: #e08a6d; --pa-cat-2: #8fb7e0; --pa-cat-3: #9bb07f; --pa-cat-4: #d88ba4; --pa-cat-5: #b0aea5;
+}
+body { background: var(--pa-bg); color: var(--pa-text); font: var(--pa-fs-body)/var(--pa-lh-body) var(--pa-font-sans); }
+h1, h2, h3 { font-family: var(--pa-font-display); }
