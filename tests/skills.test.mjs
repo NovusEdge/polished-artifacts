@@ -85,6 +85,13 @@ test("carbon turns off Carbon Charts' grid and sends bar charts to Recharts", ()
   assert.match(md, /Bar charts use Recharts/);
 });
 
+test("core sends rendered clips to motion-lab in the page's look", () => {
+  const md = readFileSync("skills/core/SKILL.md", "utf8");
+  assert.match(md, /motion-lab:directing-motion/);
+  assert.match(md, /## Clips[\s\S]*tokens\.css[\s\S]*LOOK/);
+  assert.match(md, /## Clips[\s\S]*manim/i);
+});
+
 test("apple's local Satoshi rule uses the installed family name", () => {
   assert.match(readFileSync("skills/apple/SKILL.md", "utf8"), /local\("Satoshi Variable"\)/);
 });

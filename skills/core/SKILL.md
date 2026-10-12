@@ -71,10 +71,22 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 | Motion | CSS transitions; GSAP for timelines and scroll sequences; anime.js as the lighter option |
 | Explorables | Range inputs driving state; p5.js for simulations |
 | 3D | three.js, or react-three-fiber inside React |
-| Animation video | `polished-artifacts:manim`, only when the user asks |
+| Rendered clips (loops, launch videos, GIFs) | `motion-lab:directing-motion` when installed (see Clips) |
+| Math animation video | `polished-artifacts:manim`, only when the user asks |
 
 - Any page using React pastes the import map from `importmap.json` before its first module script. Without it, libraries load their own React copies and hooks break.
 - Artifacts cannot fetch CSS from a CDN. Library stylesheets ship in this skill's `vendor/` folder: copy the one you need into the working or scratchpad directory, publish it with the page through the Artifact tool's `files` map, and link it with a relative `<link rel="stylesheet" href="./carbon-charts.css">`.
+
+## Clips
+
+A clip is motion rendered to video from code: a logo loop, a product shot, a launch clip, a GIF. Motion inside the page stays under the motion rule in Charts; math explainers go to `polished-artifacts:manim`.
+
+- Load `motion-lab:directing-motion` and follow its brief, render and review loop. If it is not installed, say so and offer Manim or in-page motion instead.
+- The clip's HTML pastes the page's look `tokens.css` at the top of its `<style>` and takes every colour and face from `--pa-*`. For Editorial, copy the et-book files next to the clip. Set `window.__ready` only after `document.fonts.ready`, or frames render in the fallback face.
+- Fill the brief's LOOK slot from that file in hex: background `--pa-bg`, text `--pa-text` and `--pa-text-2`, the one accent `--pa-cat-1`, the other categories only where they encode data, and the look's heading face and weight. The brief may not add colours the look lacks.
+- Use the light theme's values. A video cannot follow the reader's theme, so on a dark page it sits on `--pa-surface` like any other figure.
+- Motion-lab's BANNED list adds to this skill's rules; neither overrides the other.
+- Embed the result as in `polished-artifacts:manim` (Rendering and embedding, steps 3–5): the 15 MB limit, uploaded assets, a poster frame, no autoplay, and a transcript. A seamless loop may add `loop`.
 
 ## Layout traps
 

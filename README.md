@@ -14,6 +14,8 @@ A Claude Code plugin that gives Claude-built artifacts one design language, writ
 | `polished-artifacts:studio` | Black and white, centred headline, colour only in figures; palette from OpenAI's blog |
 | `polished-artifacts:manim` | Manim Community animations rendered locally and embedded as video |
 
+For rendered clips (logo loops, launch videos, GIFs), install [motion-lab](https://github.com/NovusEdge/motion-lab) alongside: core hands clips to its `directing-motion` skill and fills the clip's palette and type from the page's look. Everything else works without it.
+
 ## Install
 
 ```
