@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
+import { LOOKS } from "./looks.mjs";
 import { checkTokens, parseTokens } from "../scripts/contrast.mjs";
 
 function mediaDark(css) {
@@ -9,7 +10,6 @@ function mediaDark(css) {
   return Object.fromEntries([...body.matchAll(/(--pa-[\w-]+)\s*:\s*([^;]+);/g)].map(m => [m[1], m[2].trim()]));
 }
 
-const LOOKS = readdirSync("skills").filter(d => existsSync(`skills/${d}/tokens.css`));
 
 test("every look core offers has a tokens file, and the reverse", () => {
   const offered = [...readFileSync("skills/core/SKILL.md", "utf8").matchAll(/^\| `(\w+)` \|/gm)].map(m => m[1]);

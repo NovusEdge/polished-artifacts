@@ -25,13 +25,7 @@ Body text 4.5:1; large text, chart marks and focus rings 3:1; in both themes. Th
 
 Pages play full motion by default; the owner chose this over following the operating system's `prefers-reduced-motion`. Every page with motion pastes `motion.js` and calls `paMotionInit()`, which adds a floating "Reduce motion" button (styled in `layout.css`). Pressing it sets `data-motion="reduce"` on the root, which `layout.css` uses to switch off every CSS animation and transition, remembers the choice in `localStorage`, and fires a `pa-motion` event.
 
-Scripts check `paReduced()` before animating, and finish anything already running when the event fires:
-
-```js
-addEventListener("pa-motion", e => {
-  if (e.detail.reduced) gsap.globalTimeline.getChildren(true, true, true).forEach(a => a.progress(1));
-});
-```
+`motion.js` applies a saved choice as it loads, so scripts that run before `paMotionInit()` still see it. Scripts check `paReduced()` before animating and pass every animation they start through `paTrack()`: `paTrack(gsap.timeline(…))`, `paTrack(animate(…))`. Pressing the button then finishes them all: GSAP loops stop at their end, scrubbed tweens lose their ScrollTrigger, and anime.js animations complete. Scroll-linked figures that set state with `gsap.set` under `paReduced()` need nothing more.
 
 When reduced: pass `isAnimationActive={false}` to Recharts, skip GSAP and anime.js timelines, pause p5 loops, and render three.js scenes as one still frame.
 

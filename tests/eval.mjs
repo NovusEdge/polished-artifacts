@@ -1,14 +1,14 @@
 // Scores the baseline and plugin outputs of the evaluation prompt with lint.js.
 // Usage: node tests/eval.mjs [dir]   (default docs/superpowers/notes/eval)
-import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
+import { LOOKS } from "./looks.mjs";
 import { runPage } from "./browser/run.mjs";
 
 const dir = process.argv[2] ?? "docs/superpowers/notes/eval";
 const LINT = readFileSync("skills/core/lint.js", "utf8");
 const inject = `<script>${LINT}</script><script>polishedLint().then(r=>{r.pass=polishedLintPass(r);const p=document.createElement("pre");p.id="result";p.textContent=JSON.stringify(r);document.body.append(p)})</script>`;
 
-const looks = readdirSync("skills").filter(d => existsSync(`skills/${d}/tokens.css`));
-for (const f of ["baseline", ...looks]) {
+for (const f of ["baseline", ...LOOKS]) {
   const path = `${dir}/${f}.html`;
   if (!existsSync(path)) { console.log(f, "missing"); continue; }
   for (const theme of ["light", "dark"]) for (const width of [375, 1280]) {

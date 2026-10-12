@@ -39,7 +39,7 @@ et-book (MIT, from tufte-css) is not on Google Fonts, and artifacts load other f
 
 ## Scroll-linked figure
 For a narrative page whose story moves through states (years, phases, scenarios), one figure can stay pinned beside the prose and update as each section scrolls into view, as ai-2040's dashboard does.
-- Wrap the story in one `<div class="scrolly">` inside `.pa-page`. It needs the pinned column from 1024px, before core's rail starts at 1440px, so it breaks out of the page column: `.scrolly { justify-self: center; width: min(calc(100vw - 2 * var(--pa-gutter)), calc(var(--pa-col-wide) + var(--pa-space-6) + var(--pa-rail))); }`.
+- Wrap the story in one `<div class="scrolly pa-span">` inside `.pa-page`, holding two children: a `<div>` with every prose section, then the figure. It needs the pinned column from 1024px, before core's rail starts at 1440px, so it breaks out of the page column: `.scrolly { justify-self: center; width: min(calc(100vw - 2 * var(--pa-gutter)), calc(var(--pa-col-wide) + var(--pa-space-6) + var(--pa-rail))); }`.
 - From 1024px up: `.scrolly { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: var(--pa-space-6); }`, prose left, the figure right with `position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--pa-space-5)); align-self: start`. The 3:2 split keeps the prose near 550px at 1024px and 720px at full width.
 - Each section carries `data-state="<key>"`; core's scroll-linked recipe in `libraries.md` (ScrollTrigger, the look's motion tokens) sets the figure's state as each section passes 60% of the screen.
 - The figure renders the first section's state on load, so the page is complete without scrolling.

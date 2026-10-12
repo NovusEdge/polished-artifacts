@@ -3,7 +3,13 @@
 //   gsap.to(el, { x: 120, duration: paDur("--pa-dur-mid"), ease: paEase("--pa-ease") })
 //   animate(el, { x: 120, duration: paDur("--pa-dur-mid") * 1000, ease: paEase("--pa-ease") })
 
-function paEaseFrom(css) {
+// clamp: true caps the curve at 1, for opacity and text, which must not overshoot (Apple's spring does).
+function paEaseFrom(css, { clamp = false } = {}) {
+  const f = paEaseCurve(css);
+  return clamp ? p => Math.min(1, f(p)) : f;
+}
+
+function paEaseCurve(css) {
   const v = css.trim();
   const nums = s => s.split(",").map(Number);
   if (v.startsWith("cubic-bezier(")) return paBezier(...nums(v.slice(13, -1)));
@@ -44,26 +50,43 @@ function paSeconds(css) {
 }
 
 function paToken(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
-function paEase(name) { return paEaseFrom(paToken(name)); }
+function paEase(name, opts) { return paEaseFrom(paToken(name), opts); }
 function paDur(name) { return paSeconds(paToken(name)); }
-// Full motion is the default. The floating button switches the page to end states and remembers the choice per viewer.
-function paReduced() { return document.documentElement.dataset.motion === "reduce"; }
-function paMotionInit() {
+
+// Full motion is the default. The saved choice applies as this file loads, before any animation module runs;
+// only the button waits for paMotionInit().
+if (typeof document !== "undefined") {
   let saved = null;
   try { saved = localStorage.getItem("pa-motion"); } catch (e) {}
+  document.documentElement.dataset.motion = saved === "reduce" ? "reduce" : "full";
+}
+function paReduced() { return document.documentElement.dataset.motion === "reduce"; }
+
+// Animations a page starts go through paTrack(), so pressing "Reduce motion" can finish them:
+// GSAP loops stop and jump to the end, scrubbed tweens lose their ScrollTrigger, anime.js completes.
+const paTracked = new Set();
+function paTrack(anim) { paTracked.add(anim); return anim; }
+function paFinishTracked() {
+  for (const a of paTracked) {
+    a.scrollTrigger?.kill();
+    if (a.complete) a.complete();
+    else if (a.progress) { a.repeat?.(0); a.progress(1); }
+  }
+  paTracked.clear();
+}
+
+function paMotionInit() {
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "pa-motion-toggle";
   btn.textContent = "Reduce motion";
-  const set = reduce => {
-    document.documentElement.dataset.motion = reduce ? "reduce" : "full";
-    btn.setAttribute("aria-pressed", String(reduce));
-  };
-  set(saved === "reduce");
+  btn.setAttribute("aria-pressed", String(paReduced()));
   btn.addEventListener("click", () => {
     const reduce = !paReduced();
-    set(reduce);
+    document.documentElement.dataset.motion = reduce ? "reduce" : "full";
+    btn.setAttribute("aria-pressed", String(reduce));
     try { localStorage.setItem("pa-motion", reduce ? "reduce" : "full"); } catch (e) {}
+    if (reduce) paFinishTracked();
     dispatchEvent(new CustomEvent("pa-motion", { detail: { reduced: reduce } }));
   });
   document.body.append(btn);

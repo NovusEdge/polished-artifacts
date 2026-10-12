@@ -1,6 +1,7 @@
 /* polished-artifacts page grid. Paste after the look's tokens.css; the look sets --pa-col, --pa-col-wide and --pa-rail.
    Put every block of the page directly inside .pa-page. A .pa-aside sits after the block it belongs to:
    inline below it under 1440px, beside it in the rail from 1440px. A .pa-span crosses both columns. */
+body { margin: 0; }
 .pa-page {
   --pa-gutter: 16px;
   display: grid;
@@ -15,8 +16,10 @@
   .pa-page { --pa-gutter: 64px; }
   /* Both tracks are minmax(0, max): when they do not fit, the rail fills to its width first and the column takes the rest. */
   .pa-page:has(> .pa-aside) { grid-template-columns: minmax(0, var(--pa-col-wide)) minmax(0, var(--pa-rail)); }
-  .pa-page > * { grid-column: 1; }
-  .pa-page > .pa-aside { grid-column: 2; align-self: start; }
+  /* An aside shares a grid row with the block before it, so an aside taller than that block leaves a gap
+     below it in the column. lint.js counts these as asideGaps. */
+  .pa-page > * { grid-column: 1; align-self: start; }
+  .pa-page > .pa-aside { grid-column: 2; }
   .pa-page > .pa-span { grid-column: 1 / -1; }
 }
 
