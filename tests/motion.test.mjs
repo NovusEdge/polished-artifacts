@@ -2,11 +2,35 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
+import { LOOKS } from "./looks.mjs";
 
 // motion.js is pasted into pages as a plain <script>, so load it the same way.
 const ctx = {};
 vm.runInNewContext(readFileSync("skills/core/motion.js", "utf8"), ctx);
-const { paEaseFrom, paSeconds } = ctx;
+const { paEaseFrom, paSeconds, paTrack, paFinishTracked } = ctx;
+
+test("a saved reduce choice applies as soon as motion.js loads, before paMotionInit", () => {
+  const root = { dataset: {} };
+  vm.runInNewContext(readFileSync("skills/core/motion.js", "utf8"),
+    { document: { documentElement: root }, localStorage: { getItem: () => "reduce" } });
+  assert.equal(root.dataset.motion, "reduce");
+});
+
+test("clamped easings never pass 1, for opacity and text", () => {
+  const f = paEaseFrom("linear(0, 0.5, 1.05, 1)", { clamp: true });
+  for (let p = 0; p <= 1; p += 0.01) assert.ok(f(p) <= 1, String(p));
+});
+
+test("finishing tracked motion ends GSAP loops and scrubs and completes anime.js", () => {
+  const tween = { progress(p) { this.p = p; }, repeat(n) { this.r = n; }, scrollTrigger: { kill() { this.killed = true; } } };
+  const anime = { complete() { this.done = true; } };
+  paTrack(tween); paTrack(anime);
+  paFinishTracked();
+  assert.equal(tween.p, 1);
+  assert.equal(tween.r, 0);
+  assert.equal(tween.scrollTrigger.killed, true);
+  assert.equal(anime.done, true);
+});
 
 const close = (a, b, eps = 0.01) => Math.abs(a - b) < eps;
 
@@ -30,7 +54,7 @@ test("linear() tokens interpolate between their stops, overshoot included", () =
 });
 
 test("every look's easing tokens parse", () => {
-  for (const look of ["carbon", "apple", "primer", "editorial", "material", "clay", "studio"]) {
+  for (const look of LOOKS) {
     const css = readFileSync(`skills/${look}/tokens.css`, "utf8");
     for (const k of ["--pa-ease", "--pa-ease-enter", "--pa-ease-exit"]) {
       let v = css.match(new RegExp(`${k}:\\s*([^;]+);`))[1].trim();

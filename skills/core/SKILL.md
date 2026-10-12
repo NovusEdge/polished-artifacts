@@ -109,9 +109,9 @@ A clip is motion rendered to video from code: a logo loop, a product shot, a lau
 Paste `layout.css` (this folder) after the look's tokens and put every block of the page directly inside one `<div class="pa-page">`. Do not pad `body` or set your own outer `max-width`; the grid does both.
 
 - Under 768px: one column, 16px gutters. From 768px: 32px gutters. From 1200px: the column grows to the look's `--pa-col-wide` with 48px gutters.
-- From 1440px, a `.pa-aside` moves into a rail beside the block before it, with 64px gutters. Asides hold what supports the block without being read in line: its key figure, a sidenote, a small table, a contents list. Under 1440px they sit inline after that block.
+- From 1440px, a `.pa-aside` moves into a rail beside the block before it, with 64px gutters. Asides hold what supports the block without being read in line: its key figure, a sidenote, a small table, a contents list. Under 1440px they sit inline after that block. An aside shares a grid row with that block, so keep it shorter than the block; a taller one leaves a gap in the column, which `lint.js` reports as `asideGaps`. Never put a sticky figure in the rail: it can only stick within its row (see the scroll-linked recipe in `libraries.md`).
 - A wide figure or table that should cross both columns gets `.pa-span`.
-- Use the rail when the page has supporting material; otherwise the page stays one wide column. `lint.js` fails a page whose content spans less than 55% of a 1200–1599px screen or 40% of a wider one. The wide columns are about 1.2 times the base: wider lines read badly and the owner found the first, wider settings overdone.
+- Use the rail when the page has supporting material; otherwise the page stays one wide column. `lint.js` fails a page whose content spans less than 55% of a 1200–1439px screen, 50% of a 1440–1599px one, or 40% of a wider one. The wide columns are about 1.2 times the base: wider lines read badly and the owner found the first, wider settings overdone.
 
 ## Layout traps
 

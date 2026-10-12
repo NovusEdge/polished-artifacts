@@ -62,16 +62,23 @@ async function polishedLint() {
   report.viewportWidth = vw;
   // Clamped to the viewport: a wide table inside its own scroll container reports its full scroll width.
   report.usedWidth = blocks.length ? +((Math.min(vw, Math.max(...blocks.map(b => b.right))) - Math.max(0, Math.min(...blocks.map(b => b.left)))) / vw).toFixed(2) : 0;
+  // A rail aside taller than the block it sits beside opens a gap in the main column (see core's layout.css).
+  report.asideGaps = [...document.querySelectorAll(".pa-page > .pa-aside")].filter(a => {
+    const prev = a.previousElementSibling;
+    return prev && getComputedStyle(a).gridColumnStart === "2"
+      && a.getBoundingClientRect().height > prev.getBoundingClientRect().height + 48;
+  }).length;
   return report;
 }
 
-// Content spanning less than this share of a wide screen leaves most of it as margin.
-function paMinUsedWidth(vw) { return vw < 1200 ? 0 : vw < 1600 ? 0.55 : 0.4; }
+// Content spanning less than this share of a wide screen leaves most of it as margin. From 1440px a page
+// may use the rail, so a one-column page there only needs its look's wide column (820px is 0.51 of 1599px).
+function paMinUsedWidth(vw) { return vw < 1200 ? 0 : vw < 1440 ? 0.55 : vw < 1600 ? 0.5 : 0.4; }
 
 function pass(r) {
   return Object.entries(PA_THRESHOLDS).every(([k, max]) => r[k] <= max)
     && r.firstViewport.h1 && r.firstViewport.figure && !r.horizontalScroll
-    && r.usedWidth >= paMinUsedWidth(r.viewportWidth);
+    && r.usedWidth >= paMinUsedWidth(r.viewportWidth) && !r.asideGaps;
 }
 
 if (typeof window !== "undefined") { window.polishedLint = polishedLint; window.polishedLintPass = pass; }

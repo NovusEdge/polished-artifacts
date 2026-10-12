@@ -42,17 +42,30 @@ test("a fixed 680px column fails the width check on a wide screen but not on a p
 });
 
 // Apple and Studio have the narrowest wide column (820px), so they are the hardest looks to pass with.
-test("core's page grid passes the width check at 1280px and 1920px, with and without asides", () => {
-  const page = readFileSync("tests/fixtures/page-grid.html", "utf8")
-    .replace("/* tokens */", readFileSync("skills/apple/tokens.css", "utf8"))
-    .replace("/* layout */", readFileSync("skills/core/layout.css", "utf8"));
+const gridPage = () => readFileSync("tests/fixtures/page-grid.html", "utf8")
+  .replace("/* tokens */", readFileSync("skills/apple/tokens.css", "utf8"))
+  .replace("/* layout */", readFileSync("skills/core/layout.css", "utf8"));
+
+test("core's page grid passes the width check from 1280px to 1920px, with and without asides", () => {
+  const page = gridPage();
   const dir = mkdtempSync(join(tmpdir(), "pa-grid-"));
   writeFileSync(join(dir, "with-aside.html"), page);
   writeFileSync(join(dir, "single.html"), page.replace(/<aside[\s\S]*?<\/aside>/, ""));
-  for (const file of ["with-aside.html", "single.html"]) for (const width of [1280, 1920]) {
+  // 1536 and 1580 sit in the band where a one-column 820px page covers barely half the screen.
+  for (const file of ["with-aside.html", "single.html"]) for (const width of [1280, 1536, 1580, 1920]) {
     const r = runPage(join(dir, file), { width, inject });
     assert.equal(r.pass, true, `${file} ${width}: ${JSON.stringify(r)}`);
   }
+});
+
+test("a rail aside taller than the block beside it fails as a gap", () => {
+  const tall = gridPage().replace('<div class="fig-label">share shipped by Chinese firms</div>',
+    '<div class="fig-label">share shipped by Chinese firms</div><div style="height:600px"></div>');
+  const dir = mkdtempSync(join(tmpdir(), "pa-gap-"));
+  writeFileSync(join(dir, "tall.html"), tall);
+  const r = runPage(join(dir, "tall.html"), { width: 1600, inject });
+  assert.equal(r.asideGaps, 1);
+  assert.equal(r.pass, false);
 });
 
 test("accent on buttons, links and data-encodes elements is not decorative", () => {

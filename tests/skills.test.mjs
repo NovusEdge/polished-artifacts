@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 
 const SKILLS = readdirSync("skills").filter(d => existsSync(`skills/${d}/SKILL.md`));
-const LOOKS = readdirSync("skills").filter(d => existsSync(`skills/${d}/tokens.css`));
+import { LOOKS } from "./looks.mjs";
 for (const s of SKILLS) {
   test(`${s}/SKILL.md exists, has frontmatter, and is under 150 lines`, { skip: !existsSync(`skills/${s}/SKILL.md`) }, () => {
     const md = readFileSync(`skills/${s}/SKILL.md`, "utf8");
