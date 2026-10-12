@@ -8,7 +8,7 @@ description: Editorial look for polished-artifacts, modelled on Tufte CSS and th
 Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only its `--pa-*` tokens. The look follows ai-2040.com (sampled 2026-10-12), which is built on Tufte CSS: ivory paper, black ink, et-book, and dark red `#8b0000` as the only accent.
 
 ## Fonts
-`tokens.css` loads et-book from three files next to the page: `et-book-roman.woff`, `et-book-italic.woff` and `et-book-bold.woff` in this folder (MIT, from tufte-css). Copy them to the page's directory. For an artifact, publish them through the Artifact tool's `files` map under the same names. Without them the page falls back to Palatino or Georgia, which keeps the layout but loses the look.
+et-book (MIT, from tufte-css) is not on Google Fonts, and artifacts load other fonts only as `data:` URIs. `et-book.css` (this folder) holds its roman, italic and bold faces inlined, about 175 KB. Copy it next to the page and link it with `<link rel="stylesheet" href="./et-book.css">`; for an artifact, also publish it through the Artifact tool's `files` map under that name. Linking keeps the 175 KB out of the page's own source. Without it the page falls back to Palatino or Georgia, which keeps the layout but loses the look. After replacing a woff file, regenerate with `node scripts/et-book-css.mjs > skills/editorial/et-book.css`.
 
 ## Type
 - et-book for everything except code. Headings at weight 400; italic for emphasis, never bold body text.
