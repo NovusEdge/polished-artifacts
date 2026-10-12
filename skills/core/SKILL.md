@@ -98,7 +98,7 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 A clip is motion rendered to video from code: a logo loop, a product shot, a launch clip, a GIF. Motion inside the page follows Motion on the page; math explainers go to `polished-artifacts:manim`.
 
 - Load `motion-lab:directing-motion` and follow its brief, render and review loop. If it is not installed, say so and offer Manim or in-page motion instead.
-- The clip's HTML pastes the page's look `tokens.css` at the top of its `<style>` and takes every colour and face from `--pa-*`. For Editorial, copy the et-book files next to the clip. Set `window.__ready` only after `document.fonts.ready`, or frames render in the fallback face.
+- The clip's HTML pastes the page's look `tokens.css` at the top of its `<style>` and takes every colour and face from `--pa-*`. For Editorial, link `et-book.css` from that look's folder too. Set `window.__ready` only after `document.fonts.ready`, or frames render in the fallback face.
 - Fill the brief's LOOK slot from that file in hex: background `--pa-bg`, text `--pa-text` and `--pa-text-2`, the one accent `--pa-cat-1`, the other categories only where they encode data, and the look's heading face and weight. The brief may not add colours the look lacks.
 - Use the light theme's values. A video cannot follow the reader's theme, so on a dark page it sits on `--pa-surface` like any other figure.
 - Motion-lab's BANNED list adds to this skill's rules; neither overrides the other.

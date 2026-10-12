@@ -1,6 +1,7 @@
 et-book-roman.woff, et-book-italic.woff and et-book-bold.woff are the et-book
 roman line figures, display italic old-style figures and bold line figures
 faces, copied unmodified from tufte-css 1.8.0 (https://github.com/edwardtufte/tufte-css).
+et-book.css embeds the same three files, base64-encoded and otherwise unmodified.
 
 Copyright (c) 2015 Dmitry Krasny, Bonnie Scranton, Edward Tufte.
 

@@ -1,6 +1,3 @@
-@font-face { font-family: "et-book"; src: url("./et-book-roman.woff") format("woff"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "et-book"; src: url("./et-book-italic.woff") format("woff"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "et-book"; src: url("./et-book-bold.woff") format("woff"); font-weight: 700; font-style: normal; font-display: swap; }
 :root {
   color-scheme: light;
   --pa-bg: #fffff8; --pa-surface: #f6f5ea; --pa-text: #111111; --pa-text-2: #5c5b55; --pa-border: #e2e1d6;
