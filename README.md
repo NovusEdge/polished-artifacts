@@ -34,7 +34,7 @@ codex plugin add polished-artifacts@nimble-fox
 
 Codex reads the root `plugin.json`; Claude Code reads `.claude-plugin/plugin.json`. Both load the same `skills/` directory, so nothing is copied. Keep the two manifests' `name` and `version` equal (`tests/manifest.test.mjs` checks).
 
-All four skills carry over. The plugin has no agents, hooks, commands or MCP servers, so there is nothing else to port. The skills are written for Claude artifacts; in Codex they apply to any standalone HTML page you ask for.
+All nine skills carry over. Core hands rendered clips to motion-lab, a separate Claude Code plugin; without it, core offers Manim or motion on the page instead. The plugin has no agents, hooks, commands or MCP servers, so there is nothing else to port. The skills are written for Claude artifacts; in Codex they apply to any standalone HTML page you ask for.
 
 ## Use
 
