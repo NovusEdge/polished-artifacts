@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "instrument sans",
+        "createdAt": "2026-10-12T12:17:24.414Z",
+        "reason": "Claude: clay imitates anthropic.com's heading sans; a side-by-side render showed Instrument Sans closer to it than Schibsted Grotesk"
+      }
+    ]
+  }
+}

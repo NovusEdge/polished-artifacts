@@ -32,6 +32,14 @@ for (const look of LOOKS) {
   test(`${look} has no translucent surfaces`, () => {
     assert.doesNotMatch(readFileSync(path, "utf8"), /backdrop-filter|blur\(/);
   });
+  test(`${look} sets width and motion tokens`, () => {
+    const { light } = parseTokens(readFileSync(path, "utf8"));
+    for (const k of ["--pa-col", "--pa-col-wide", "--pa-rail", "--pa-ease", "--pa-ease-enter", "--pa-ease-exit", "--pa-dur-fast", "--pa-dur-mid", "--pa-dur-slow", "--pa-dur-long"])
+      assert.ok(light[k], `${look} lacks ${k}`);
+    assert.ok(parseInt(light["--pa-col-wide"]) > parseInt(light["--pa-col"]), `${look} wide column is not wider`);
+    const durs = ["fast", "mid", "slow", "long"].map(d => parseInt(light[`--pa-dur-${d}`]));
+    assert.deepEqual([...durs].sort((a, b) => a - b), durs, `${look} durations out of order`);
+  });
   test(`${look} categories match the Manim theme`, () => {
     const { light, dark } = parseTokens(readFileSync(path, "utf8"));
     for (const [mode, t] of [["False", light], ["True", dark]]) {

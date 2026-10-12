@@ -16,7 +16,8 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - The page opens with a small line above the h1 naming the series or report (ai-2040 sets "AI 2040" over "Plan A"), the h1, then an author or date line in `--pa-text-2`.
 
 ## Layout
-- Prose column 760px max on the left of a 1280px page, 16px side padding on phones and 32px from 768px up. The right side holds the sticky figure when the page has one; otherwise figures span the full page width.
+- Core's page grid (`layout.css`) with `--pa-col` 760px, `--pa-col-wide` 1000px and a wider `--pa-rail` of 440px, which holds sidenotes and the sticky figure in Tufte's margin. Without rail content, figures take `.pa-span`.
+- Motion tokens come from ai-2040.com's stylesheets (sampled 2026-10-12): `cubic-bezier(0.4, 0, 0.2, 1)` for state changes, ease-out-quint to enter, and 150, 260, 500 and 700ms durations.
 - Spacing only from `--pa-space-*`.
 - No boxes or cards. Sections are separated by space alone.
 
@@ -38,8 +39,9 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 
 ## Scroll-linked figure
 For a narrative page whose story moves through states (years, phases, scenarios), one figure can stay pinned beside the prose and update as each section scrolls into view, as ai-2040's dashboard does.
-- From 1024px up: a two-column grid, prose left, the figure in the right column with `position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--pa-space-5))`.
-- Each section carries `data-state="<key>"`. An `IntersectionObserver` with `rootMargin: "-40% 0px -55% 0px"` sets the figure's state from the section crossing the middle of the screen. Transitions follow core's motion rule.
+- Wrap the story in one `<div class="scrolly">` inside `.pa-page`. It needs the pinned column from 1024px, before core's rail starts at 1440px, so it breaks out of the page column: `.scrolly { justify-self: center; width: min(calc(100vw - 2 * var(--pa-gutter)), calc(var(--pa-col-wide) + var(--pa-space-6) + var(--pa-rail))); }`.
+- From 1024px up: `.scrolly { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: var(--pa-space-6); }`, prose left, the figure right with `position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--pa-space-5)); align-self: start`. The 3:2 split keeps the prose near 550px at 1024px and 720px at full width.
+- Each section carries `data-state="<key>"`; core's scroll-linked recipe in `libraries.md` (ScrollTrigger, the look's motion tokens) sets the figure's state as each section passes 60% of the screen.
 - The figure renders the first section's state on load, so the page is complete without scrolling.
 - Under 1024px the sticky figure is hidden and each section shows its own state as an inline figure at the section's top. Build both from the same render function.
 - Every state's numbers also appear in the section text or a table, so nothing depends on the animation.

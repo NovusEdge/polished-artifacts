@@ -9,6 +9,9 @@
   --pa-fs-h3: 20px; --pa-lh-h3: 28px; --pa-fs-h2: 28px; --pa-lh-h2: 34px; --pa-fs-h1: 64px; --pa-lh-h1: 64px;
   --pa-radius: 8px; --pa-shadow: none;
   --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 128px;
+  --pa-col: 680px; --pa-col-wide: 1000px; --pa-rail: 360px;
+  --pa-ease: cubic-bezier(0.17, 0.17, 0.3, 1); --pa-ease-enter: cubic-bezier(0.22, 1, 0.36, 1); --pa-ease-exit: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --pa-dur-fast: 200ms; --pa-dur-mid: 300ms; --pa-dur-slow: 400ms; --pa-dur-long: 700ms;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   color-scheme: dark;

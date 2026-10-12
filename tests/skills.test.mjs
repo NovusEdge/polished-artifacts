@@ -15,7 +15,7 @@ for (const s of SKILLS) {
 
 test("core references every reference file it ships", () => {
   const md = readFileSync("skills/core/SKILL.md", "utf8");
-  for (const f of ["libraries.md", "accessibility.md", "checklist.md", "lint.js", "importmap.json", "vendor/"]) assert.ok(md.includes(f), f);
+  for (const f of ["libraries.md", "accessibility.md", "checklist.md", "lint.js", "importmap.json", "vendor/", "layout.css", "motion.js"]) assert.ok(md.includes(f), f);
 });
 
 test("core loads artifact-design first, overrides artifact-diagramming, and names data-encodes", () => {
@@ -90,6 +90,23 @@ test("core sends rendered clips to motion-lab in the page's look", () => {
   assert.match(md, /motion-lab:directing-motion/);
   assert.match(md, /## Clips[\s\S]*tokens\.css[\s\S]*LOOK/);
   assert.match(md, /## Clips[\s\S]*manim/i);
+});
+
+test("core puts GSAP and anime.js motion on the page, driven by the look's motion tokens", () => {
+  const md = readFileSync("skills/core/SKILL.md", "utf8");
+  assert.match(md, /## Motion on the page[\s\S]*--pa-ease[\s\S]*ScrollTrigger/);
+  assert.match(md, /complete at rest/i);
+  assert.match(md, /reduced-motion/);
+  const lib = readFileSync("skills/core/libraries.md", "utf8");
+  assert.match(lib, /gsap@3\.15\.0\/ScrollTrigger\/\+esm/);
+  assert.match(lib, /animejs@4\.5\.0\/\+esm/);
+});
+
+test("look skills take their column widths from the width tokens", () => {
+  for (const look of LOOKS) {
+    const md = readFileSync(`skills/${look}/SKILL.md`, "utf8");
+    assert.match(md, /--pa-col-wide/, look);
+  }
 });
 
 test("apple's local Satoshi rule uses the installed family name", () => {

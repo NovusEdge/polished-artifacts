@@ -29,7 +29,7 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 - Each section opens with its takeaway as a headline sentence. The figure below proves it.
 - Order: answer, evidence, detail, sources.
 - Lists show the top 5–7 items. The rest go in `<details><summary>Show all N</summary>…</details>` or an appendix table. Never render dozens of names as badges or chips.
-- Body text uses the look's `--pa-fs-body`. Text runs the full width of its column: no `max-width` in `ch` or px on paragraphs, ledes, section heads, captions or list text. The owner found 60–75-character measures left most of a wide page empty. Width comes from the layout grid and the page's outer `max-width`.
+- Body text uses the look's `--pa-fs-body`. Text runs the full width of its column: no `max-width` in `ch` or px on paragraphs, ledes, section heads, captions or list text. The owner found 60–75-character measures left most of a wide page empty. Width comes from the page grid (Page width).
 - Labels are 12px or larger, sentence case, in the body face. No uppercase eyebrows. Monospace is for code only; numbers use `font-variant-numeric: tabular-nums`.
 - Every figure sits in a `<figure>` with a one-line `<figcaption>` saying what to notice.
 - Sources are numbered footnotes at the end. Nothing depends on hover.
@@ -56,7 +56,23 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 - A second colour for "the rest" is a real neutral mark colour with a key above the chart, never the text colour.
 - Never draw bars on a log axis: bar length then depends on where the axis starts. Use a line chart when the categories have an order (sizes by type, values over time), a dot plot otherwise.
 - Fills come from CSS classes on the marks (`className` on `<Cell>`, `.recharts-line-curve` for lines) that read `--pa-*`, so a theme switch recolours the chart without re-rendering.
-- Motion shows a real state change only: 300ms or less, `cubic-bezier(0.23, 1, 0.32, 1)`, off under `prefers-reduced-motion`.
+- Chart transitions follow Motion on the page: state-change tier, the look's tokens.
+
+## Motion on the page
+
+GSAP and anime.js run in the page itself. Motion explains: it shows a state change, an order of events, or a cause and its effect. Each look's `tokens.css` sets `--pa-ease`, `--pa-ease-enter`, `--pa-ease-exit` and `--pa-dur-fast|mid|slow|long` from its design system; use those, read in JS through `motion.js` (this folder), so motion carries the look like colour does.
+
+| Tier | Duration | Tool | For |
+|---|---|---|---|
+| Feedback | `--pa-dur-fast` | CSS transitions | Hover, press, toggle, focus |
+| State change | `--pa-dur-mid` to `--pa-dur-slow` | CSS, or anime.js `animate` | Filters, sorting, chart updates, tabs, a value changing |
+| Choreography | up to `--pa-dur-long` per move | GSAP timelines and ScrollTrigger | One load sequence for the opening figure, a figure pinned while the text scrolls past, a diagram that builds in the order the text explains it, a key figure counting up |
+
+- Before writing choreography, add a motion brief as a comment above the script: what each move explains, which element moves, from and to, duration and easing as numbers. Use `motion-lab:directing-motion`'s `references/numbers.md` for stagger, holds and hierarchy when it is installed.
+- One hero move per section at a time; secondary moves start 100–200ms after it and travel less. Never fade-and-slide-up every block, never start everything at once, and never move text while it is being read.
+- The page is complete at rest: everything is visible and correct before any script runs, so a move starts from the visible state or sets its start state in the same frame it begins. Never leave content at `opacity: 0` waiting for an observer.
+- Under `prefers-reduced-motion: reduce`, skip timelines and jump to the end state; scroll-linked figures show each step's state without tweening. Print shows the end state.
+- Recipes, import URLs and the scroll-pin pattern are in `libraries.md`.
 
 ## Libraries
 
@@ -68,7 +84,7 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 | Diagrams | Artifacts: native `<pre class="mermaid">`. Local HTML: Mermaid ESM. React Flow + elkjs when the reader should drag or explore. |
 | Graph layouts | d3-force, d3-hierarchy, d3-sankey inside a React component |
 | Charts | Carbon look: Carbon Charts (Recharts when direct labels are needed). Every other look: Recharts. D3 for custom charts in any look. |
-| Motion | CSS transitions; GSAP for timelines and scroll sequences; anime.js as the lighter option |
+| Motion | CSS for feedback, anime.js for state changes, GSAP with ScrollTrigger for choreography (see Motion on the page) |
 | Explorables | Range inputs driving state; p5.js for simulations |
 | 3D | three.js, or react-three-fiber inside React |
 | Rendered clips (loops, launch videos, GIFs) | `motion-lab:directing-motion` when installed (see Clips) |
@@ -79,7 +95,7 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 
 ## Clips
 
-A clip is motion rendered to video from code: a logo loop, a product shot, a launch clip, a GIF. Motion inside the page stays under the motion rule in Charts; math explainers go to `polished-artifacts:manim`.
+A clip is motion rendered to video from code: a logo loop, a product shot, a launch clip, a GIF. Motion inside the page follows Motion on the page; math explainers go to `polished-artifacts:manim`.
 
 - Load `motion-lab:directing-motion` and follow its brief, render and review loop. If it is not installed, say so and offer Manim or in-page motion instead.
 - The clip's HTML pastes the page's look `tokens.css` at the top of its `<style>` and takes every colour and face from `--pa-*`. For Editorial, copy the et-book files next to the clip. Set `window.__ready` only after `document.fonts.ready`, or frames render in the fallback face.
@@ -87,6 +103,15 @@ A clip is motion rendered to video from code: a logo loop, a product shot, a lau
 - Use the light theme's values. A video cannot follow the reader's theme, so on a dark page it sits on `--pa-surface` like any other figure.
 - Motion-lab's BANNED list adds to this skill's rules; neither overrides the other.
 - Embed the result as in `polished-artifacts:manim` (Rendering and embedding, steps 3–5): the 15 MB limit, uploaded assets, a poster frame, no autoplay, and a transcript. A seamless loop may add `loop`.
+
+## Page width
+
+Paste `layout.css` (this folder) after the look's tokens and put every block of the page directly inside one `<div class="pa-page">`. Do not pad `body` or set your own outer `max-width`; the grid does both.
+
+- Under 768px: one column, 16px gutters. From 768px: 32px gutters. From 1200px: the column grows to the look's `--pa-col-wide` with 48px gutters.
+- From 1440px, a `.pa-aside` moves into a rail beside the block before it, with 64px gutters. Asides hold what supports the block without being read in line: its key figure, a sidenote, a small table, a contents list. Under 1440px they sit inline after that block.
+- A wide figure or table that should cross both columns gets `.pa-span`.
+- Use the rail when the page has supporting material; otherwise the page stays one wide column. `lint.js` fails a page whose content spans less than 60% of a 1200–1599px screen or 50% of a wider one.
 
 ## Layout traps
 
@@ -100,4 +125,4 @@ Follow `accessibility.md`: keyboard reach and focus rings, a caption and data `<
 
 ## Before publishing
 
-Run `checklist.md`. In Claude Code, also open the local file in chrome-devtools and run `lint.js` there with `evaluate_script`, passing the file's contents inside a function: `async () => { <contents of lint.js>; const r = await polishedLint(); return { pass: polishedLintPass(r), ...r }; }`. Check both themes (set `document.documentElement.dataset.theme`) at 375px and 1280px, and fix every failure before publishing.
+Run `checklist.md`. In Claude Code, also open the local file in chrome-devtools and run `lint.js` there with `evaluate_script`, passing the file's contents inside a function: `async () => { <contents of lint.js>; const r = await polishedLint(); return { pass: polishedLintPass(r), ...r }; }`. Check both themes (set `document.documentElement.dataset.theme`) at 375px, 1280px and 1920px, and once with reduced motion emulated (`emulate` with `prefers-reduced-motion: reduce`), and fix every failure before publishing.

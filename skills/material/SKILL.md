@@ -12,7 +12,8 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - M3 type scale: h1 is display small 36/44 weight 400, h2 headline medium 28/36 weight 400, h3 title large 22/28 weight 500, body large 16/24, labels and captions label medium 12/16 weight 500.
 
 ## Layout
-- One column, 840px max (M3's expanded window class), 16px side padding on phones and 24px from 600px up.
+- Core's page grid (`layout.css`) with `--pa-col` 840px (M3's expanded window class) and `--pa-col-wide` 1200px (its large class). Rail asides are `--pa-surface` containers.
+- Motion tokens are M3's emphasized easings (emphasized, emphasized-decelerate to enter, emphasized-accelerate to exit) and short3, medium2, long2 and extra-long2 durations (150, 300, 500, 800ms), from `@material/web`.
 - Spacing only from `--pa-space-*`.
 - Group related content in containers instead of separating it with rules.
 

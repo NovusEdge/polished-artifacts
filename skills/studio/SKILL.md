@@ -17,8 +17,8 @@ No OpenAI logo, wordmark, product names in headings, or anything that would make
 
 ## Layout
 - The header block is centred: a meta line (date, then category in `--pa-text-2`), the h1, a two-line lede at body size, and at most one pill button. Everything after it is left-aligned.
-- Article column 680px max, centred. Figures and image-led sections break out to 1000px.
-- 16px side padding on phones and 32px from 768px up. Spacing only from `--pa-space-*`; 128px above the first section.
+- Core's page grid (`layout.css`) with `--pa-col` 680px and `--pa-col-wide` 1000px. Figures and image-led sections take `.pa-span`. Spacing only from `--pa-space-*`; 128px above the first section.
+- Motion tokens come from OpenAI's stylesheets (sampled 2026-10-12): its primary curve `cubic-bezier(.17, .17, .3, 1)`, ease-out-quint reveals, an in-out sine to exit, and 200, 300, 400 and 700ms durations. Reveals are slow and large: the long duration, one element at a time.
 
 ## Surfaces
 - `--pa-bg` is pure white or pure black. `--pa-surface` holds a note box, a table or a chart, with `--pa-radius` (8px) corners and 32px padding. No shadows, no borders on surfaces.

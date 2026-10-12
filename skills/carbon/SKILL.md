@@ -12,10 +12,10 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - Scale (Carbon productive): h1 42/50 light, h2 28/36, h3 20/28, body 16/24, labels and captions 12/16 at the smallest. Use `--pa-fs-*` and `--pa-lh-*`.
 
 ## Layout
-- Side gutter: `body { padding-inline: var(--pa-space-3); }`, and 32px from 672px up.
-- A 16-column grid on wide screens, 4 columns under 672px.
+- Core's page grid (`layout.css`) with `--pa-col` 1056px and `--pa-col-wide` 1312px, the content width of Carbon's 2x grid at its lg and max breakpoints. Prose and data share the column.
+- Inside the column, data regions may split into Carbon's 16 columns on wide screens, 4 under 672px.
 - Spacing only from `--pa-space-*` (4, 8, 16, 24, 32, 48, 64, 96).
-- Prose runs in a 680px column. Data sections may span the full grid.
+- Motion tokens are Carbon's productive curves (standard, entrance, exit) and its fast-02, moderate-02, slow-01 and slow-02 durations (110, 240, 400, 700ms), from `@carbon/motion`.
 
 ## Surfaces
 - Flat. `--pa-radius` is 0: square corners everywhere.

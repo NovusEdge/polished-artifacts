@@ -1,0 +1,21 @@
+/* polished-artifacts page grid. Paste after the look's tokens.css; the look sets --pa-col, --pa-col-wide and --pa-rail.
+   Put every block of the page directly inside .pa-page. A .pa-aside sits after the block it belongs to:
+   inline below it under 1440px, beside it in the rail from 1440px. A .pa-span crosses both columns. */
+.pa-page {
+  --pa-gutter: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, var(--pa-col));
+  justify-content: center;
+  column-gap: var(--pa-space-6);
+  padding-inline: var(--pa-gutter);
+}
+@media (min-width: 768px) { .pa-page { --pa-gutter: 32px; } }
+@media (min-width: 1200px) { .pa-page { --pa-gutter: 48px; grid-template-columns: minmax(0, var(--pa-col-wide)); } }
+@media (min-width: 1440px) {
+  .pa-page { --pa-gutter: 64px; }
+  /* Both tracks are minmax(0, max): when they do not fit, the rail fills to its width first and the column takes the rest. */
+  .pa-page:has(> .pa-aside) { grid-template-columns: minmax(0, var(--pa-col-wide)) minmax(0, var(--pa-rail)); }
+  .pa-page > * { grid-column: 1; }
+  .pa-page > .pa-aside { grid-column: 2; align-self: start; }
+  .pa-page > .pa-span { grid-column: 1 / -1; }
+}
