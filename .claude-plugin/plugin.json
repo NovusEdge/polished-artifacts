@@ -1,7 +1,7 @@
 {
   "name": "polished-artifacts",
   "displayName": "Polished Artifacts",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A human-first design language for Claude artifacts: reading and encoding rules, seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio), and Manim animation.",
   "author": { "name": "NovusEdge" },
   "license": "MIT",
