@@ -10,4 +10,6 @@ Fix every "no" before publishing.
 6. Are all labels 12px or larger, with monospace only in code?
 7. Is the page free of `backdrop-filter`, blur and translucent panels?
 8. Is the page free of raw filesystem paths?
-9. In Claude Code: does `polishedLintPass(await polishedLint())` return true in light and dark, at 375px and 1280px?
+9. Does every block sit in core's page grid, with supporting material as `.pa-aside` so wide screens use the rail?
+10. Does a page with motion show the "Reduce motion" button, and with it pressed does every animated element show its end state? Is the page complete before any script runs?
+11. In Claude Code: does `polishedLintPass(await polishedLint())` return true in light and dark, at 375px, 1280px and 1920px?

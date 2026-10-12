@@ -17,7 +17,8 @@ No `backdrop-filter`, no blur, no translucent or frosted panels, no vibrancy. Su
 
 ## Layout
 - 8pt grid; spacing only from `--pa-space-*`.
-- One centred column, 680px max, with 16px side padding on phones and 32px from 768px up.
+- Core's page grid (`layout.css`) with `--pa-col` 680px and `--pa-col-wide` 820px. Asides in the rail sit on `--pa-surface` like an inset group.
+- Motion tokens: SwiftUI's default spring (response 0.5s, damping fraction 0.825) sampled into a CSS `linear()` curve for every easing, with 150, 350, 600 and 900ms durations. The curve overshoots by 1%, so no text or opacity uses it.
 - Fewer items per screen than Carbon: a short list plus "Show all" over a dense table.
 
 ## Surfaces
@@ -47,5 +48,5 @@ Check these before inventing a pattern the look doesn't cover:
 
 ## Fonts
 Satoshi is an owner-only opt-in, on when `~/.local/share/fonts/Satoshi/Satoshi-Variable.woff2` exists.
-- Local HTML: `@font-face { font-family: Satoshi; src: url("file://$HOME/.local/share/fonts/Satoshi/Satoshi-Variable.woff2") format("woff2"); font-weight: 300 900; }` with `$HOME` written out, then `--pa-font-sans: Satoshi, -apple-system, system-ui, sans-serif;`.
+- Local HTML: `@font-face { font-family: Satoshi; src: local("Satoshi Variable"); font-weight: 300 900; }`, then `--pa-font-sans: Satoshi, -apple-system, system-ui, sans-serif;`. The installed family is named "Satoshi Variable", so a bare `Satoshi` in the font stack falls through to the next font, and browsers block `file://` font URLs from pages served over http.
 - Published artifacts: follow `fonts.md` in this folder if it exists; otherwise use the system stack.

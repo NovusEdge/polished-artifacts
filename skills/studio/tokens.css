@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap");
+:root {
+  color-scheme: light;
+  --pa-bg: #ffffff; --pa-surface: #f3f3f3; --pa-text: #000000; --pa-text-2: #5d5d5d; --pa-border: #e8e8e8;
+  --pa-interactive: #000000; --pa-link: #000000; --pa-focus: #2c67c5;
+  --pa-cat-1: #2c67c5; --pa-cat-2: #d25e28; --pa-cat-3: #3a843f; --pa-cat-4: #7849d1; --pa-cat-5: #ab4f7a;
+  --pa-font-sans: "Hanken Grotesk", system-ui, sans-serif; --pa-font-mono: ui-monospace, Menlo, monospace;
+  --pa-fs-caption: 14px; --pa-lh-caption: 20px; --pa-fs-body: 17px; --pa-lh-body: 28px;
+  --pa-fs-h3: 20px; --pa-lh-h3: 28px; --pa-fs-h2: 28px; --pa-lh-h2: 34px; --pa-fs-h1: 64px; --pa-lh-h1: 64px;
+  --pa-radius: 8px; --pa-shadow: none;
+  --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 128px;
+  --pa-col: 680px; --pa-col-wide: 820px; --pa-rail: 360px;
+  --pa-ease: cubic-bezier(0.17, 0.17, 0.3, 1); --pa-ease-enter: cubic-bezier(0.22, 1, 0.36, 1); --pa-ease-exit: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --pa-dur-fast: 200ms; --pa-dur-mid: 300ms; --pa-dur-slow: 400ms; --pa-dur-long: 700ms;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --pa-bg: #000000; --pa-surface: #212121; --pa-text: #ffffff; --pa-text-2: #afafaf; --pa-border: #303030;
+  --pa-interactive: #ffffff; --pa-link: #ffffff; --pa-focus: #63a8f8;
+  --pa-cat-1: #63a8f8; --pa-cat-2: #f1a275; --pa-cat-3: #6bc67f; --pa-cat-4: #b897f4; --pa-cat-5: #f68ebc;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pa-bg: #000000; --pa-surface: #212121; --pa-text: #ffffff; --pa-text-2: #afafaf; --pa-border: #303030;
+  --pa-interactive: #ffffff; --pa-link: #ffffff; --pa-focus: #63a8f8;
+  --pa-cat-1: #63a8f8; --pa-cat-2: #f1a275; --pa-cat-3: #6bc67f; --pa-cat-4: #b897f4; --pa-cat-5: #f68ebc;
+}
+body { background: var(--pa-bg); color: var(--pa-text); font: var(--pa-fs-body)/var(--pa-lh-body) var(--pa-font-sans); letter-spacing: -0.01em; }
+h1 { font-weight: 500; letter-spacing: -0.03em; }
+h2, h3 { font-weight: 500; letter-spacing: -0.01em; }
+@media (max-width: 767px) { :root { --pa-fs-h1: 40px; --pa-lh-h1: 44px; } }

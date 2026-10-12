@@ -1,6 +1,7 @@
 docs/superpowers/
 *.woff2
 *.woff
+!skills/editorial/et-book-*.woff
 *.otf
 *.ttf
 .superpowers/

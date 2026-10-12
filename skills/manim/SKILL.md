@@ -11,11 +11,11 @@ This skill uses Manim Community Edition (0.21.0 as of 2026-09-26), not ManimGL. 
 
 ## Setup (once per machine)
 - System packages (Arch): `ffmpeg cairo pango texlive-basic texlive-latexextra`. LaTeX is only needed for `MathTex` and `Tex`.
-- Fonts for the looks: `ttf-ibm-plex` for Carbon; Satoshi for Apple, if the owner's opt-in is installed under `~/.local/share/fonts/`. Run `fc-cache -f` after adding fonts. A missing face falls back to `sans-serif`.
+- Fonts for the looks: `ttf-ibm-plex` for Carbon; Satoshi for Apple, if the owner's opt-in is installed under `~/.local/share/fonts/`; `ttf-roboto` for Material (Roboto Flex has no Arch package); Instrument Sans for Clay and Hanken Grotesk for Studio, from Google Fonts; for Editorial, the et-book `.ttf` files from `edwardtufte/et-book`, installed under the family name "ET Book". Primer uses the system sans. Run `fc-cache -f` after adding fonts. A missing face falls back to `sans-serif`.
 - Per scene, in a scratch directory: `uv init --bare && uv add manim`.
 
 ## Writing a scene
-- Import the look: `sys.path.insert(0, "<this skill's directory>"); from theme import apply; T = apply("carbon" or "apple", dark=False)`. Use `T["text"]`, `T["text2"]`, `T["cat"][0..4]` and `T["font"]`. No other colours.
+- Import the look: `sys.path.insert(0, "<this skill's directory>"); from theme import apply; T = apply("<look>", dark=False)` with the look core picked (`carbon`, `apple`, `primer`, `editorial`, `material`, `clay` or `studio`). Use `T["text"]`, `T["text2"]`, `T["cat"][0..4]` and `T["font"]`. No other colours.
 - One idea per scene. Each animation shows one state change and runs 0.3–1s. Hold the final state at least 1.5s so it can be read.
 - Text uses `T["font"]` and is at least 24px at 1080p. Equations use `MathTex`.
 - The camera moves only to follow the idea. No decorative motion.

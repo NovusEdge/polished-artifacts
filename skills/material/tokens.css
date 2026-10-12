@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,700&family=Roboto+Mono&display=swap");
+:root {
+  color-scheme: light;
+  --pa-bg: #fef7ff; --pa-surface: #f3edf7; --pa-text: #1d1b20; --pa-text-2: #49454f; --pa-border: #cac4d0;
+  --pa-interactive: #6750a4; --pa-link: #6750a4; --pa-focus: #6750a4;
+  --pa-cat-1: #5f52a7; --pa-cat-2: #0b61a4; --pa-cat-3: #006a64; --pa-cat-4: #944b00; --pa-cat-5: #984061;
+  --pa-font-sans: "Roboto Flex", Roboto, system-ui, sans-serif; --pa-font-mono: "Roboto Mono", ui-monospace, monospace;
+  --pa-fs-caption: 12px; --pa-lh-caption: 16px; --pa-fs-body: 16px; --pa-lh-body: 24px;
+  --pa-fs-h3: 22px; --pa-lh-h3: 28px; --pa-fs-h2: 28px; --pa-lh-h2: 36px; --pa-fs-h1: 36px; --pa-lh-h1: 44px;
+  --pa-radius: 12px; --pa-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+  --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 96px;
+  --pa-col: 840px; --pa-col-wide: 1000px; --pa-rail: 360px;
+  --pa-ease: cubic-bezier(0.2, 0, 0, 1); --pa-ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1); --pa-ease-exit: cubic-bezier(0.3, 0, 0.8, 0.15);
+  --pa-dur-fast: 150ms; --pa-dur-mid: 300ms; --pa-dur-slow: 500ms; --pa-dur-long: 800ms;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --pa-bg: #141218; --pa-surface: #211f26; --pa-text: #e6e0e9; --pa-text-2: #cac4d0; --pa-border: #49454f;
+  --pa-interactive: #d0bcff; --pa-link: #d0bcff; --pa-focus: #d0bcff;
+  --pa-cat-1: #c9bfff; --pa-cat-2: #a0c9ff; --pa-cat-3: #50dbd0; --pa-cat-4: #ffb783; --pa-cat-5: #ffb1c8;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --pa-bg: #141218; --pa-surface: #211f26; --pa-text: #e6e0e9; --pa-text-2: #cac4d0; --pa-border: #49454f;
+  --pa-interactive: #d0bcff; --pa-link: #d0bcff; --pa-focus: #d0bcff;
+  --pa-cat-1: #c9bfff; --pa-cat-2: #a0c9ff; --pa-cat-3: #50dbd0; --pa-cat-4: #ffb783; --pa-cat-5: #ffb1c8;
+}
+body { background: var(--pa-bg); color: var(--pa-text); font: var(--pa-fs-body)/var(--pa-lh-body) var(--pa-font-sans); }

@@ -1,0 +1,34 @@
+/* polished-artifacts page grid. Paste after the look's tokens.css; the look sets --pa-col, --pa-col-wide and --pa-rail.
+   Put every block of the page directly inside .pa-page. A .pa-aside sits after the block it belongs to:
+   inline below it under 1440px, beside it in the rail from 1440px. A .pa-span crosses both columns. */
+.pa-page {
+  --pa-gutter: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, var(--pa-col));
+  justify-content: center;
+  column-gap: var(--pa-space-6);
+  padding-inline: var(--pa-gutter);
+}
+@media (min-width: 768px) { .pa-page { --pa-gutter: 32px; } }
+@media (min-width: 1200px) { .pa-page { --pa-gutter: 48px; grid-template-columns: minmax(0, var(--pa-col-wide)); } }
+@media (min-width: 1440px) {
+  .pa-page { --pa-gutter: 64px; }
+  /* Both tracks are minmax(0, max): when they do not fit, the rail fills to its width first and the column takes the rest. */
+  .pa-page:has(> .pa-aside) { grid-template-columns: minmax(0, var(--pa-col-wide)) minmax(0, var(--pa-rail)); }
+  .pa-page > * { grid-column: 1; }
+  .pa-page > .pa-aside { grid-column: 2; align-self: start; }
+  .pa-page > .pa-span { grid-column: 1 / -1; }
+}
+
+/* The reduce-motion button that motion.js adds. Pages without motion leave motion.js out and never show it. */
+.pa-motion-toggle {
+  position: fixed; z-index: 10;
+  right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  font: 500 14px/20px var(--pa-font-sans); padding: 8px 14px; cursor: pointer;
+  color: var(--pa-text); background: var(--pa-bg); border: 1px solid var(--pa-border); border-radius: var(--pa-radius);
+}
+.pa-motion-toggle[aria-pressed="true"] { color: var(--pa-bg); background: var(--pa-text); border-color: var(--pa-text); }
+:root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before, :root[data-motion="reduce"] *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+@media print { .pa-motion-toggle { display: none; } }

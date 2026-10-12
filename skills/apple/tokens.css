@@ -8,6 +8,9 @@
   --pa-fs-h3: 20px; --pa-lh-h3: 25px; --pa-fs-h2: 22px; --pa-lh-h2: 28px; --pa-fs-h1: 34px; --pa-lh-h1: 41px;
   --pa-radius: 12px; --pa-shadow: 0 1px 3px rgba(0,0,0,0.08);
   --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 48px; --pa-space-7: 64px; --pa-space-8: 96px;
+  --pa-col: 680px; --pa-col-wide: 820px; --pa-rail: 360px;
+  --pa-ease: linear(0, 0.086, 0.263, 0.457, 0.628, 0.763, 0.861, 0.927, 0.969, 0.992, 1.004, 1.009, 1.01, 1.009, 1.007, 1.005, 1); --pa-ease-enter: var(--pa-ease); --pa-ease-exit: var(--pa-ease);
+  --pa-dur-fast: 150ms; --pa-dur-mid: 350ms; --pa-dur-slow: 600ms; --pa-dur-long: 900ms;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   color-scheme: dark;

@@ -141,7 +141,51 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawDiagra
 
 ## Motion, explorables, 3D
 
-- GSAP: `import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/+esm"`. Guard every timeline with `if (!matchMedia("(prefers-reduced-motion: reduce)").matches)`.
-- anime.js: `import { animate } from "https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm"`, same guard.
+Paste `motion.js` (core) into a plain `<script>` first. It turns the look's `--pa-ease*` and `--pa-dur-*` tokens into what GSAP and anime.js take: `paEase(name)` returns an easing function, `paDur(name)` returns seconds, `paReduced()` reports reduced motion. Both libraries accept an easing function; neither reads a CSS `cubic-bezier()` or `linear()` string.
+
+- GSAP 3.15.0 (free for all use since 30 April 2025, ScrollTrigger included): `import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/+esm"` and `import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/ScrollTrigger/+esm"`, then `gsap.registerPlugin(ScrollTrigger)`. Durations are seconds.
+- anime.js 4.5.0: `import { animate, stagger, createTimeline } from "https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm"`. Durations are milliseconds: `paDur(...) * 1000`. Version 4 removed string eases from the core; pass `paEase(...)`.
+
+State change with anime.js, a bar moving to its new value when a filter changes:
+
+```js
+import { animate } from "https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm";
+function setBar(el, pct) {
+  if (paReduced()) { el.style.width = pct + "%"; return; }
+  animate(el, { width: pct + "%", duration: paDur("--pa-dur-mid") * 1000, ease: paEase("--pa-ease") });
+}
+```
+
+Load sequence for the opening figure with GSAP. The figure is drawn complete in HTML; the timeline starts from that state with `from` tweens set in the same frame, so a failed script leaves the finished figure:
+
+```js
+import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/+esm";
+if (!paReduced()) {
+  // Brief: bars grow left to right in rank order so the leader reads first; 0.08s stagger; labels follow 0.15s after their bar.
+  const tl = gsap.timeline({ defaults: { ease: paEase("--pa-ease-enter"), duration: paDur("--pa-dur-slow") } });
+  tl.from(".bar", { scaleX: 0, transformOrigin: "left center", stagger: 0.08 })
+    .from(".bar-value", { opacity: 0, stagger: 0.08, duration: paDur("--pa-dur-mid") }, 0.15);
+}
+```
+
+Scroll-linked figure: the figure stays in place with CSS `position: sticky` (in the rail from 1440px, or above the text on smaller screens), and each section that scrolls past sets its state. ScrollTrigger only reports which section is active; the state change itself is a short tween:
+
+```js
+import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/+esm";
+import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.15.0/ScrollTrigger/+esm";
+gsap.registerPlugin(ScrollTrigger);
+function show(state) {  // draws one state; also called on load with the first state
+  for (const bar of figure.querySelectorAll(".bar")) {
+    const to = { width: state.values[bar.dataset.key] + "%" };
+    paReduced() ? gsap.set(bar, to) : gsap.to(bar, { ...to, duration: paDur("--pa-dur-slow"), ease: paEase("--pa-ease"), overwrite: true });
+  }
+}
+for (const section of document.querySelectorAll("[data-state]")) {
+  ScrollTrigger.create({ trigger: section, start: "top 60%", end: "bottom 60%",
+    onToggle: self => self.isActive && show(STATES[section.dataset.state]) });
+}
+```
+
+Every state's numbers also appear in its section's text or a table, so the page reads without the figure moving.
 - p5.js: `import p5 from "https://cdn.jsdelivr.net/npm/p5@2.3.4/+esm"` in instance mode (`new p5(sketch, el)`), paused under reduced motion, with a range input for every parameter the text discusses.
 - three.js: `import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.186.1/+esm"`. Scene background from `--pa-bg`, never transparent over text. Provide a still image or a text description for print and reduced motion.
