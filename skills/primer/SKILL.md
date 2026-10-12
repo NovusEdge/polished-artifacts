@@ -13,7 +13,7 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - Weights: 400 for body, 600 for headings and emphasis.
 
 ## Layout
-- Core's page grid (`layout.css`) with `--pa-col` 1012px (GitHub's container-lg) and `--pa-col-wide` 1280px (container-xl). Prose runs the full column. The rail suits a sticky contents list, as on a GitHub README.
+- Core's page grid (`layout.css`) with `--pa-col` 1012px (GitHub's container-lg) and `--pa-col-wide` 1120px. Prose runs the full column. The rail suits a sticky contents list, as on a GitHub README.
 - Motion tokens are Primer's base easings (easeInOut, easeOut, easeIn) and functional durations (micro 100, short 200, medium 300, long 500ms), from `@primer/primitives`.
 - Spacing only from `--pa-space-*` (4, 8, 16, 24, 32, 40, 48, 64).
 - Sections are separated by space and the heading rule, not by boxes.

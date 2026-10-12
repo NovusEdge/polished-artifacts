@@ -96,7 +96,8 @@ test("core puts GSAP and anime.js motion on the page, driven by the look's motio
   const md = readFileSync("skills/core/SKILL.md", "utf8");
   assert.match(md, /## Motion on the page[\s\S]*--pa-ease[\s\S]*ScrollTrigger/);
   assert.match(md, /complete at rest/i);
-  assert.match(md, /reduced-motion/);
+  assert.match(md, /Full motion is the default[\s\S]*paMotionInit/);
+  assert.match(readFileSync("skills/core/layout.css", "utf8"), /:root\[data-motion="reduce"\]/);
   const lib = readFileSync("skills/core/libraries.md", "utf8");
   assert.match(lib, /gsap@3\.15\.0\/ScrollTrigger\/\+esm/);
   assert.match(lib, /animejs@4\.5\.0\/\+esm/);

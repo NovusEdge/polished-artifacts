@@ -17,7 +17,7 @@ No `backdrop-filter`, no blur, no translucent or frosted panels, no vibrancy. Su
 
 ## Layout
 - 8pt grid; spacing only from `--pa-space-*`.
-- Core's page grid (`layout.css`) with `--pa-col` 680px and `--pa-col-wide` 980px, apple.com's content width. Asides in the rail sit on `--pa-surface` like an inset group.
+- Core's page grid (`layout.css`) with `--pa-col` 680px and `--pa-col-wide` 820px. Asides in the rail sit on `--pa-surface` like an inset group.
 - Motion tokens: SwiftUI's default spring (response 0.5s, damping fraction 0.825) sampled into a CSS `linear()` curve for every easing, with 150, 350, 600 and 900ms durations. The curve overshoots by 1%, so no text or opacity uses it.
 - Fewer items per screen than Carbon: a short list plus "Show all" over a dense table.
 

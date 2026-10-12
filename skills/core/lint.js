@@ -60,12 +60,13 @@ async function polishedLint() {
   const blocks = [...document.querySelectorAll("h1,h2,h3,p,figure,table,ul,ol,pre,aside")].filter(paVisible).map(e => e.getBoundingClientRect());
   const vw = document.documentElement.clientWidth;
   report.viewportWidth = vw;
-  report.usedWidth = blocks.length ? +((Math.max(...blocks.map(b => b.right)) - Math.min(...blocks.map(b => b.left))) / vw).toFixed(2) : 0;
+  // Clamped to the viewport: a wide table inside its own scroll container reports its full scroll width.
+  report.usedWidth = blocks.length ? +((Math.min(vw, Math.max(...blocks.map(b => b.right))) - Math.max(0, Math.min(...blocks.map(b => b.left)))) / vw).toFixed(2) : 0;
   return report;
 }
 
 // Content spanning less than this share of a wide screen leaves most of it as margin.
-function paMinUsedWidth(vw) { return vw < 1200 ? 0 : vw < 1600 ? 0.6 : 0.5; }
+function paMinUsedWidth(vw) { return vw < 1200 ? 0 : vw < 1600 ? 0.55 : 0.4; }
 
 function pass(r) {
   return Object.entries(PA_THRESHOLDS).every(([k, max]) => r[k] <= max)

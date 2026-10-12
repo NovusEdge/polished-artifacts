@@ -71,7 +71,7 @@ GSAP and anime.js run in the page itself. Motion explains: it shows a state chan
 - Before writing choreography, add a motion brief as a comment above the script: what each move explains, which element moves, from and to, duration and easing as numbers. Use `motion-lab:directing-motion`'s `references/numbers.md` for stagger, holds and hierarchy when it is installed.
 - One hero move per section at a time; secondary moves start 100–200ms after it and travel less. Never fade-and-slide-up every block, never start everything at once, and never move text while it is being read.
 - The page is complete at rest: everything is visible and correct before any script runs, so a move starts from the visible state or sets its start state in the same frame it begins. Never leave content at `opacity: 0` waiting for an observer.
-- Under `prefers-reduced-motion: reduce`, skip timelines and jump to the end state; scroll-linked figures show each step's state without tweening. Print shows the end state.
+- Full motion is the default. Every page with motion calls `paMotionInit()` from `motion.js`, which adds a floating "Reduce motion" button; when it is on, `paReduced()` is true, CSS motion stops, timelines jump to their end state, and scroll-linked figures show each step's state without tweening (`accessibility.md`). Print shows the end state.
 - Recipes, import URLs and the scroll-pin pattern are in `libraries.md`.
 
 ## Libraries
@@ -111,7 +111,7 @@ Paste `layout.css` (this folder) after the look's tokens and put every block of 
 - Under 768px: one column, 16px gutters. From 768px: 32px gutters. From 1200px: the column grows to the look's `--pa-col-wide` with 48px gutters.
 - From 1440px, a `.pa-aside` moves into a rail beside the block before it, with 64px gutters. Asides hold what supports the block without being read in line: its key figure, a sidenote, a small table, a contents list. Under 1440px they sit inline after that block.
 - A wide figure or table that should cross both columns gets `.pa-span`.
-- Use the rail when the page has supporting material; otherwise the page stays one wide column. `lint.js` fails a page whose content spans less than 60% of a 1200–1599px screen or 50% of a wider one.
+- Use the rail when the page has supporting material; otherwise the page stays one wide column. `lint.js` fails a page whose content spans less than 55% of a 1200–1599px screen or 40% of a wider one. The wide columns are about 1.2 times the base: wider lines read badly and the owner found the first, wider settings overdone.
 
 ## Layout traps
 
@@ -125,4 +125,4 @@ Follow `accessibility.md`: keyboard reach and focus rings, a caption and data `<
 
 ## Before publishing
 
-Run `checklist.md`. In Claude Code, also open the local file in chrome-devtools and run `lint.js` there with `evaluate_script`, passing the file's contents inside a function: `async () => { <contents of lint.js>; const r = await polishedLint(); return { pass: polishedLintPass(r), ...r }; }`. Check both themes (set `document.documentElement.dataset.theme`) at 375px, 1280px and 1920px, and once with reduced motion emulated (`emulate` with `prefers-reduced-motion: reduce`), and fix every failure before publishing.
+Run `checklist.md`. In Claude Code, also open the local file in chrome-devtools and run `lint.js` there with `evaluate_script`, passing the file's contents inside a function: `async () => { <contents of lint.js>; const r = await polishedLint(); return { pass: polishedLintPass(r), ...r }; }`. Check both themes (set `document.documentElement.dataset.theme`) at 375px, 1280px and 1920px, and once with the "Reduce motion" button pressed, and fix every failure before publishing.

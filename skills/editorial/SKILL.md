@@ -16,7 +16,7 @@ Paste `tokens.css` (this folder) at the top of the page's `<style>`. Use only it
 - The page opens with a small line above the h1 naming the series or report (ai-2040 sets "AI 2040" over "Plan A"), the h1, then an author or date line in `--pa-text-2`.
 
 ## Layout
-- Core's page grid (`layout.css`) with `--pa-col` 760px, `--pa-col-wide` 1000px and a wider `--pa-rail` of 440px, which holds sidenotes and the sticky figure in Tufte's margin. Without rail content, figures take `.pa-span`.
+- Core's page grid (`layout.css`) with `--pa-col` 760px, `--pa-col-wide` 880px and a wider `--pa-rail` of 440px, which holds sidenotes and the sticky figure in Tufte's margin. Without rail content, figures take `.pa-span`.
 - Motion tokens come from ai-2040.com's stylesheets (sampled 2026-10-12): `cubic-bezier(0.4, 0, 0.2, 1)` for state changes, ease-out-quint to enter, and 150, 260, 500 and 700ms durations.
 - Spacing only from `--pa-space-*`.
 - No boxes or cards. Sections are separated by space alone.

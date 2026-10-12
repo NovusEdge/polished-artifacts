@@ -8,7 +8,7 @@
   --pa-fs-h3: 20px; --pa-lh-h3: 25px; --pa-fs-h2: 24px; --pa-lh-h2: 30px; --pa-fs-h1: 32px; --pa-lh-h1: 40px;
   --pa-radius: 6px; --pa-shadow: none;
   --pa-space-1: 4px; --pa-space-2: 8px; --pa-space-3: 16px; --pa-space-4: 24px; --pa-space-5: 32px; --pa-space-6: 40px; --pa-space-7: 48px; --pa-space-8: 64px;
-  --pa-col: 1012px; --pa-col-wide: 1280px; --pa-rail: 360px;
+  --pa-col: 1012px; --pa-col-wide: 1120px; --pa-rail: 360px;
   --pa-ease: cubic-bezier(0.6, 0, 0.2, 1); --pa-ease-enter: cubic-bezier(0.3, 0.8, 0.6, 1); --pa-ease-exit: cubic-bezier(0.7, 0.1, 0.75, 0.9);
   --pa-dur-fast: 100ms; --pa-dur-mid: 200ms; --pa-dur-slow: 300ms; --pa-dur-long: 500ms;
 }

@@ -19,3 +19,16 @@
   .pa-page > .pa-aside { grid-column: 2; align-self: start; }
   .pa-page > .pa-span { grid-column: 1 / -1; }
 }
+
+/* The reduce-motion button that motion.js adds. Pages without motion leave motion.js out and never show it. */
+.pa-motion-toggle {
+  position: fixed; z-index: 10;
+  right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  font: 500 14px/20px var(--pa-font-sans); padding: 8px 14px; cursor: pointer;
+  color: var(--pa-text); background: var(--pa-bg); border: 1px solid var(--pa-border); border-radius: var(--pa-radius);
+}
+.pa-motion-toggle[aria-pressed="true"] { color: var(--pa-bg); background: var(--pa-text); border-color: var(--pa-text); }
+:root[data-motion="reduce"] *, :root[data-motion="reduce"] *::before, :root[data-motion="reduce"] *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}
+@media print { .pa-motion-toggle { display: none; } }

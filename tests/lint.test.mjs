@@ -35,13 +35,13 @@ for (const theme of ["light", "dark"]) {
 
 test("a fixed 680px column fails the width check on a wide screen but not on a phone", () => {
   const wide = runPage("tests/fixtures/narrow-column.html", { width: 1280, inject });
-  assert.ok(wide.usedWidth < 0.6, `usedWidth=${wide.usedWidth}`);
+  assert.ok(wide.usedWidth < 0.55, `usedWidth=${wide.usedWidth}`);
   assert.equal(wide.pass, false);
   const phone = runPage("tests/fixtures/narrow-column.html", { width: 375, inject });
   assert.equal(phone.pass, true, JSON.stringify(phone));
 });
 
-// Apple has the narrowest wide column (980px), so it is the hardest look to pass with.
+// Apple and Studio have the narrowest wide column (820px), so they are the hardest looks to pass with.
 test("core's page grid passes the width check at 1280px and 1920px, with and without asides", () => {
   const page = readFileSync("tests/fixtures/page-grid.html", "utf8")
     .replace("/* tokens */", readFileSync("skills/apple/tokens.css", "utf8"))

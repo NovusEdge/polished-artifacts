@@ -16,7 +16,7 @@ No Anthropic logo, wordmark, product names in headings, or anything that would m
 - Labels, captions and table headers stay in the serif body face, per core.
 
 ## Layout
-- Core's page grid (`layout.css`) with `--pa-col` 720px and `--pa-col-wide` 1000px. Key figures and meta lines go in the rail.
+- Core's page grid (`layout.css`) with `--pa-col` 720px and `--pa-col-wide` 860px. Key figures and meta lines go in the rail.
 - Motion tokens come from anthropic.com's stylesheets (sampled 2026-10-12): CSS `ease` for state changes, its ease-out-quart and ease-in-quart variables to enter and exit, and 180, 250, 300 and 800ms durations.
 - Spacing only from `--pa-space-*`. Generous: 64px between sections.
 - Thin `--pa-border` rules separate list rows and the header area, as on the site's newsroom.

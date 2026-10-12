@@ -1,5 +1,5 @@
 // Reads the look's motion tokens for GSAP and anime.js, which take an easing function, not a CSS string.
-// In a page: paste this file into a <script> before the module that animates.
+// In a page: paste this file into a <script> before the module that animates, and call paMotionInit() once the body exists.
 //   gsap.to(el, { x: 120, duration: paDur("--pa-dur-mid"), ease: paEase("--pa-ease") })
 //   animate(el, { x: 120, duration: paDur("--pa-dur-mid") * 1000, ease: paEase("--pa-ease") })
 
@@ -46,4 +46,25 @@ function paSeconds(css) {
 function paToken(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
 function paEase(name) { return paEaseFrom(paToken(name)); }
 function paDur(name) { return paSeconds(paToken(name)); }
-function paReduced() { return matchMedia("(prefers-reduced-motion: reduce)").matches; }
+// Full motion is the default. The floating button switches the page to end states and remembers the choice per viewer.
+function paReduced() { return document.documentElement.dataset.motion === "reduce"; }
+function paMotionInit() {
+  let saved = null;
+  try { saved = localStorage.getItem("pa-motion"); } catch (e) {}
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "pa-motion-toggle";
+  btn.textContent = "Reduce motion";
+  const set = reduce => {
+    document.documentElement.dataset.motion = reduce ? "reduce" : "full";
+    btn.setAttribute("aria-pressed", String(reduce));
+  };
+  set(saved === "reduce");
+  btn.addEventListener("click", () => {
+    const reduce = !paReduced();
+    set(reduce);
+    try { localStorage.setItem("pa-motion", reduce ? "reduce" : "full"); } catch (e) {}
+    dispatchEvent(new CustomEvent("pa-motion", { detail: { reduced: reduce } }));
+  });
+  document.body.append(btn);
+}
