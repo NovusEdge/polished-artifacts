@@ -10,7 +10,7 @@ Pages are for a person reading them, not an agent parsing them. Every rule serve
 ## Load order
 
 1. If the `artifact-design` skill is not loaded in this conversation, load it now. It owns the page contract (title, theme tokens, CDN allowlist, phone width, no skeleton tags in artifacts). Follow it on those.
-2. This plugin overrides `artifact-design` on style, and replaces `artifact-diagramming`: never write SVG coordinates by hand. Diagrams come from Mermaid, React Flow or D3 (see Libraries).
+2. This plugin overrides `artifact-design` on style, and replaces `artifact-diagramming`: never write SVG coordinates by hand. Diagrams come from Mermaid, React Flow or D3, and architecture diagrams from LikeC4 (see Libraries).
 3. Pick the look. If this conversation already chose one, reuse it unless the user names another. Otherwise ask once, naming the look from this table that fits the content as the recommended option, then load `polished-artifacts:<look>`. Every look defines the same `--pa-*` tokens; use only those for colour, type and space.
 
 | Look | Suits |
@@ -82,6 +82,7 @@ Load a library only when the page uses it. Versions, recipes and the page-weight
 |---|---|
 | Structure and text | Plain HTML. Add React only for interactive components. |
 | Diagrams | Artifacts: native `<pre class="mermaid">`. Local HTML: Mermaid ESM. React Flow + elkjs when the reader should drag or explore. |
+| Architecture (system context, containers, flows) | `polished-artifacts:likec4`: one model, several views, built locally in the look's colours |
 | Graph layouts | d3-force, d3-hierarchy, d3-sankey inside a React component |
 | Charts | Carbon look: Carbon Charts (Recharts when direct labels are needed). Every other look: Recharts. D3 for custom charts in any look. |
 | Motion | CSS for feedback, anime.js for state changes, GSAP with ScrollTrigger for choreography (see Motion on the page) |

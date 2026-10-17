@@ -7,7 +7,7 @@ import { LOOKS } from "./looks.mjs";
 for (const s of SKILLS) {
   test(`${s}/SKILL.md exists, has frontmatter, and is under 150 lines`, { skip: !existsSync(`skills/${s}/SKILL.md`) }, () => {
     const md = readFileSync(`skills/${s}/SKILL.md`, "utf8");
-    assert.match(md, /^---\nname: [a-z]+\ndescription: .+\n---\n/);
+    assert.match(md, /^---\nname: [a-z][a-z0-9]*\ndescription: .+\n---\n/);
     assert.ok(md.split("\n").length < 150, `${md.split("\n").length} lines`);
     assert.doesNotMatch(md, /\b(TBD|TODO|Stub)\b/);
   });

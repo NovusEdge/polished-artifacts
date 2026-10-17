@@ -13,6 +13,7 @@ A Claude Code plugin that gives Claude-built artifacts one design language, writ
 | `polished-artifacts:clay` | Warm ivory, serif body and sans headings, clay accent; palette from anthropic.com |
 | `polished-artifacts:studio` | Black and white, centred headline, colour only in figures; palette from OpenAI's blog |
 | `polished-artifacts:manim` | Manim Community animations rendered locally and embedded as video |
+| `polished-artifacts:likec4` | Architecture diagrams from a LikeC4 model in the look's colours, published as an explorable page, an embedded view or an image |
 
 For rendered clips (logo loops, launch videos, GIFs), install [motion-lab](https://github.com/NovusEdge/motion-lab) alongside: core hands clips to its `directing-motion` skill and fills the clip's palette and type from the page's look. Everything else works without it.
 
@@ -34,7 +35,7 @@ codex plugin add polished-artifacts@nimble-fox
 
 Codex reads the root `plugin.json`; Claude Code reads `.claude-plugin/plugin.json`. Both load the same `skills/` directory, so nothing is copied. Keep the two manifests' `name` and `version` equal (`tests/manifest.test.mjs` checks).
 
-All nine skills carry over. Core hands rendered clips to motion-lab, a separate Claude Code plugin; without it, core offers Manim or motion on the page instead. The plugin has no agents, hooks, commands or MCP servers, so there is nothing else to port. The skills are written for Claude artifacts; in Codex they apply to any standalone HTML page you ask for.
+All ten skills carry over. Core hands rendered clips to motion-lab, a separate Claude Code plugin; without it, core offers Manim or motion on the page instead. The plugin has no agents, hooks, commands or MCP servers, so there is nothing else to port. The skills are written for Claude artifacts; in Codex they apply to any standalone HTML page you ask for.
 
 ## Use
 
