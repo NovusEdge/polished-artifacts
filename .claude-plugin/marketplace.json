@@ -6,8 +6,8 @@
     {
       "name": "polished-artifacts",
       "source": "./",
-      "description": "Human-first design language for Claude artifacts, with seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio) and Manim animation.",
-      "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "primer", "material", "tufte", "manim"]
+      "description": "Human-first design language for Claude artifacts, with seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio), Manim animation and LikeC4 architecture diagrams.",
+      "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "primer", "material", "tufte", "manim", "likec4", "architecture"]
     }
   ]
 }

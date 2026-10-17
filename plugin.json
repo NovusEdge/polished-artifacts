@@ -2,12 +2,12 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "polished-artifacts",
   "version": "0.3.1",
-  "description": "A human-first design language for agent-built HTML pages: reading and encoding rules, seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio), and Manim animation.",
+  "description": "A human-first design language for agent-built HTML pages: reading and encoding rules, seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio), Manim animation, and LikeC4 architecture diagrams.",
   "author": { "name": "NovusEdge", "url": "https://github.com/NovusEdge" },
   "homepage": "https://github.com/NovusEdge/polished-artifacts",
   "repository": "https://github.com/NovusEdge/polished-artifacts",
   "license": "MIT",
-  "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "primer", "material", "tufte", "manim"],
+  "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "primer", "material", "tufte", "manim", "likec4", "architecture"],
   "extensions": {
     "com.openai": {
       "interface": {

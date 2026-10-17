@@ -2,9 +2,9 @@
   "name": "polished-artifacts",
   "displayName": "Polished Artifacts",
   "version": "0.3.1",
-  "description": "A human-first design language for Claude artifacts: reading and encoding rules, seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio), and Manim animation.",
+  "description": "A human-first design language for Claude artifacts: reading and encoding rules, seven looks (Carbon, Apple, Primer, Editorial, Material, Clay, Studio), Manim animation, and LikeC4 architecture diagrams.",
   "author": { "name": "NovusEdge" },
   "license": "MIT",
   "homepage": "https://github.com/NovusEdge/polished-artifacts",
-  "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "primer", "material", "tufte", "manim"]
+  "keywords": ["artifacts", "design", "dataviz", "carbon", "hig", "primer", "material", "tufte", "manim", "likec4", "architecture"]
 }
